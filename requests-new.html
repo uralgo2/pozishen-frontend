@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en" data-has_leftmenu="1" class="g-theme_regular" data-popup-open="false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, initial-scale=0.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="media/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<header id="top_panel">
+    <i class="logo_wrapper">
+        <a class="module_logo" href="/" title="Топвизор">
+            <img src="media/images/logo.svg" alt="Топвизор" height="32"></a>
+    </i>
+    <i id="select_project_button">
+        <a href="/projects.html" class="g g_button g-color_theme g-style_soft" data-g_icon=""
+           title="К списку проектов"></a>
+        <button class="g g_button g-color_theme g-style_soft" data-action="select-project" data-g_icon_2=""
+                title="Поиск проектов (s)">
+            <i class="g_ellipsis"></i>
+        </button>
+    </i>
+    <i id="top_panel_menu" class="menu template">
+        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"
+           style="padding: 0 5px"></a>
+        <i class="menu_item_bank">
+            <a href="/bank.html" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
+                95.20&nbsp;₽
+            </a>
+            <a href="." class="g g_button g-color_theme g-style_soft" data-to-view="win_bank_payment-po" data-g_icon=""
+               title="Пополнить баланс"></a>
+        </i>
+    </i>
+    <div id="popup_usermenu"
+         class="top-popup-wrapper p-from-top p3 top-popup-wrapper-shown"
+         style="width: 46px; height: 28px;
+          --top-popup-height:28px; --top-popup-right-bounding:1551.5px;
+          --top-popup-bottom-bounding:48px; --top-popup-top:12px;
+          --top-popup-left:1505.5px;">
+
+        <div class="full-page__close"  data-action="select-project"></div>
+
+        <div class="g_popup top-popup">
+            <ul class="content">
+                <bank></bank>
+                <li>
+                    <a href="/bank.html" data-g_icon="">
+                        Расходы
+                    </a>
+                </li>
+                <li class="hr"></li>
+                <li>
+                    <a href="/account.html" data-g_icon="">
+                        Настройки аккаунта
+                    </a>
+                </li>
+
+                <li class="hr g-only_pc"></li>
+                <li class="logins-el"><i class="a g-active" onclick="return logins.auth('14469')"><img
+                        src="media/images/avatar.jpg"><i>omi4sem@mail.ru</i></i></li>
+                <li class="hr"></li>
+                <li>
+                    <a onclick="Api.logout()" href="#" class="logout" data-g_icon="">
+                        Выйти из аккаунта
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <i class="profile" data-top-popup="#popup_usermenu">
+        <i class="icon icon-caret-down"></i>
+        <img src="media/images/avatar.jpg" alt="avatar">
+    </i>
+</header>
+
+<div id="popup_select_project" class="top-popup-wrapper p-from-top top-popup-wrapper-shown p3"
+     style=" --top-popup-height:32px; --top-popup-right-bounding:328px; --top-popup-bottom-bounding:40px; --top-popup-top:8px; --top-popup-left:96px;"
+     tabindex="0">
+
+    <div class="g_popup top-popup" style="">
+        <ul class="content">
+            <li class="g_title" data-type="scheduled">Проверка по расписанию</li>
+
+        </ul>
+    </div>
+</div>
+
+
+<div id="body">
+    <aside id="left_col">
+        <script defer="">requirejs(['component/tpl/layouts/leftmenu']);</script>
+        <ul id="leftmenu">
+            <li class="g_title">Поиск</li>
+            <li class="g-active">
+                <a class="g-active item" href="/requests-new.html" data-g_icon="" title="Поисковые запросы">
+                    <i>Поисковые запросы</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/positions.html" data-g_icon="" title="Проверка позиций">
+                    <i>Проверка позиций</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/snapshots/5476772/" data-g_icon="" title="Снимки выдачи">
+                    <i>Снимки выдачи</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/competitors/5476772/" data-g_icon="" title="Мои конкуренты">
+                    <i>Мои конкуренты</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/analytics/5476772/" data-g_icon="" title="Аналитика">
+                    <i>Аналитика</i>
+                </a>
+            </li>
+            <li class="g_title">Реклама</li>
+            <li class="">
+                <a class="item" href="/project/broker/5476772/direct/" data-g_icon="" title="Яндекс.Директ">
+                    <i>Яндекс.Директ</i>
+                </a>
+            </li>
+            <li class="g_title">Аудит</li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/audit/" data-g_icon="" title="Анализ сайта">
+                    <i>Анализ сайта</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/indexing/" data-g_icon="" title="Индексация">
+                    <i>Индексация</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/watcher/" data-g_icon="" title="Радар">
+                    <i>Радар</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/sitemap/" data-g_icon="" title="Карта сайта">
+                    <i>Карта сайта</i>
+                </a>
+            </li>
+            <li class="g_title"></li>
+            <li class="">
+                <a class="item" href="/project/settings/5476772/" data-g_icon="" title="Настройки">
+                    <i>Настройки</i>
+                </a>
+            </li>
+            <li class="to_bottom">
+                <div class="item" data-action="expand"
+                     onclick="document.querySelector('html').classList.toggle('leftmenu_expanded')" data-g_icon=""
+                     title="Развернуть (z)">
+                    <i>Развернуть</i>
+                </div>
+                <div class="item" data-action="shrink"
+                     onclick="document.querySelector('html').classList.toggle('leftmenu_expanded')" data-g_icon=""
+                     title="Свернуть (z)">
+                    <i>Свернуть</i>
+                </div>
+            </li>
+            <li class="external">
+                <a class="item" data-g_icon="" href="#" target="_blank">
+                    <i></i>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <div id="content">
+        <div id="phrases_wrapper" class="view_3" style="display: flex;">
+
+            <div class="pad">
+                <input id="last_date" value="2022-07-06" type="hidden">
+                <input id="allow_traffic" value="1" type="hidden">
+
+                <div id="phrases_table" class="g_theme_classic flex stretch">
+                    <div class="col-1 flex column stretch">
+                        <i class="resizer"></i>
+                        <div id="phrases_groups" class="win ui-sortable" data-win_title="Группы"
+                             data-list-type="groups">
+                            <div class="body top-scroll top-longlist" data-axis="xy"
+                                 style="--top-longlist-row-height:28px;">
+                                <longlist style="min-width: 358px; height: 56px; padding-top: 0px;">
+                                </longlist>
+                            </div>
+                            <div class="top-scroll-bar axis-x"
+                                 style="display: none; width: 358px; height: 6px; left: 0px; bottom: -6px;">
+                                <div class="drag ui-draggable ui-draggable-handle" style="position: relative;"></div>
+                            </div>
+                            <div class="top-scroll-bar axis-y"
+                                 style="display: none; width: 6px; height: 368.844px; top: 54px; right: -6px;">
+                                <div class="drag ui-draggable ui-draggable-handle" style="position: relative;"></div>
+                            </div>
+                            <div class="top-scroll-pager" style="top: 54px; right: 0px; display: none;"><i
+                                    class="active">1</i><i>2</i><i>3</i></div>
+                            <div class="head">
+                                <div class="tabs ui-sortable">
+                                    <div class="tab tab tab_for_folder_0 active" title="/" style="max-width: 8px;">
+                                        <i class="name">/</i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                    <div class="tab tab tab_for_folder_-1 is_search_tab" title="">
+                                        <i class="name"></i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                </div>
+                                <div class="bar">
+                                    <i class="save_sort icon-save"></i>
+                                    <i class="select_fields">
+                                        <i class="icon-three-stripes-full"></i>
+                                    </i>
+                                    <i class="cb_sel">
+                                        <input type="checkbox" class="g" name="select_all" value=""></i>
+                                    <i class="name"><i class="filter-on on"></i>
+                                        Группы
+                                        <i class="sorter"></i>
+                                        <i class="to_search icon-search"></i>
+                                        <i class="to_add icon-plus-full" data-table-type="groups"></i>
+                                        <i class="resizer"></i>
+                                    </i>
+                                    <i class="count_keywords">
+                                        Запросы
+                                        <i class="sorter"></i>
+                                    </i>
+                                    <i class="del">
+                                        <i class="del">&nbsp;</i>
+                                    </i>
+                                </div>
+                            </div>
+                            <div class="filter_bar" style="display: none;">
+                                <i class="name">
+                                    <label class="g g_input g_input-name" data-g_icon="">
+                                        <input type="text" name="name" class="g" placeholder="Поиск" autocomplete="no">
+                                    </label>
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-2 flex stretch">
+                        <div id="phrases_keywords" class="win ui-sortable" data-win_title="Запросы"
+                             data-list-type="items">
+                            <div class="body top-scroll top-longlist" data-axis="xy"
+                                 style="--top-longlist-row-height:28px;">
+                                <longlist style="height: 84px; padding-top: 0px;">
+
+                                </longlist>
+                            </div>
+                            <div class="top-scroll-bar axis-x"
+                                 style="display: none; width: 533px; height: 6px; left: 0px; bottom: -6px;">
+                                <div class="drag ui-draggable ui-draggable-handle" style="position: relative;"></div>
+                            </div>
+                            <div class="top-scroll-bar axis-y"
+                                 style="display: none; width: 6px; height: 740.438px; top: 54px; right: -7px;">
+                                <div class="drag ui-draggable ui-draggable-handle" style="position: relative;"></div>
+                            </div>
+                            <div class="top-scroll-pager" style="top: 54px; right: -1px; display: none;"><i
+                                    class="active">1</i><i>2</i><i>3</i></div>
+                            <div class="head">
+                                <div class="tabs ui-sortable">
+                                    <div class="tab  tab tab_for_folder_-1 tab_for_group_-1 active" title="">
+                                        <i class="name">Тестовое название</i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                    <div class="tab  tab tab_for_folder_-1 tab_for_group_-1" title="">
+                                        <i class="name">Тестовое название</i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                    <div class="tab  tab tab_for_folder_-1 tab_for_group_-1 is_search_tab" title="">
+                                        <i class="name"></i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                </div>
+                                <div class="bar">
+                                    <i class="save_sort icon-save"></i>
+                                    <i class="select_fields">
+                                        <i class="icon-three-stripes-full"></i>
+                                    </i>
+                                    <i class="tags"></i>
+                                    <i class="target"></i>
+                                    <i class="cb_sel">
+                                        <input type="checkbox" class="g" name="select_all" value=""></i>
+                                    <i class="name">Запросы<i class="sorter"></i>
+                                        <i class="to_search icon-search"></i>
+                                        <i class="to_add icon-plus-full" data-table-type="items"></i>
+                                        <i class="to_import icon-cloud-in"
+                                           data-to-view="win_master_positions-keywords:5476772"></i>
+                                        <i class="resizer"></i>
+                                    </i>
+                                    <i class="path"></i>
+                                    <i class="del">
+                                        <i class="del">&nbsp;</i>
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="item_row">
+    <i class="tags top-tag-setter fixed_cell" style="transform: translateX(0px);">
+        <i class="g-active" data-tag_id="1" data-tag_color_id="1"
+           title="Тег по умолчанию"></i>
+    </i>
+    <i class="target setted fixed_cell" data-top-popup="#popup_keywords_target"
+       data-top-popup-p="1" data-top-popup-notch="1" data-top-popup-pos-by="fixed"
+       title=""
+       style="transform: translateX(0px);">
+        <i class="icon-link"></i>
+    </i>
+    <i class="cb_sel fixed_cell" style="transform: translateX(0px);">
+        <input type="checkbox" class="g" name="selected" value="">
+    </i>
+    <i class="name renamer fixed_cell" title="скупка холодильников"
+       style="transform: translateX(0px);">
+        <i class="v"></i>
+    </i>
+    <i class="path fixed_cell" style="transform: translateX(0px);">
+        <i>--</i>
+    </i>
+    <i class="add_after fixed_cell" style="transform: translateX(0px);">+</i>
+    <i class="del icon-trash" title="Удалить"></i>
+</template>
+
+<template id="group_row">
+        <i class="cb_sel">
+            <input type="checkbox" class="g" name="selected" value="23265330"></i>
+        <i class="name renamer" title="скупка холодильников">
+            <i class="on on-1" title="Включить / Выключить группу"></i>
+            <i class="v">Новая папка</i>
+        </i>
+        <i class="count_keywords">0</i>
+        <i class="add_after">+</i>
+        <i class="del icon-trash" title="Удалить"></i>
+</template>
+
+<script src="media/js/requests.js"></script>
+<script src="media/js/api.js"></script>
+<script src="media/js/requests.handlers.js"></script>
+<script src="media/js/profiles.js"></script>
+
+</body>
+</html>

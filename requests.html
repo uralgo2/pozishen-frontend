@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en" data-has_leftmenu="1" class="g-theme_regular">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="media/css/main.css">
+</head>
+<body>
+<header id="top_panel">
+    <i class="logo_wrapper">
+        <a class="module_logo" href="/" title="Топвизор">
+            <img src="media/images/logo.svg" alt="Топвизор" height="32"></a>
+    </i>
+    <i id="select_project_button">
+        <a href="/projects/" class="g g_button g-color_theme g-style_soft" data-g_icon=""
+           title="К списку проектов"></a>
+        <button class="g g_button g-color_theme g-style_soft" data-g_icon_2="" title="Поиск проектов (s)">
+            <i class="g_ellipsis">util-skupkatex.ru</i>
+        </button>
+    </i>
+    <i id="top_panel_menu" class="menu template">
+        <a href="/competitors/" class="g g_button g-color_theme" data-g_icon="" title="Анализ конкурентов"></a>
+        <a href="/ru/updates/" class="g g_button g-color_theme" data-g_icon="" title="Апометр"></a>
+        <a href="." class="g g_button g-color_theme" data-g_icon="" title="Тикеты" data-to-view="win_tickets">
+            <i data-g_badge="1"></i>
+        </a>
+        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"></a>
+        <i class="menu_item_bank">
+            <a href="/account/#to_xml_limits" class="g g_button g-color_theme g-style_soft">
+                <i>XML:</i>0
+            </a>
+            <a href="/account/bank/" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
+                95.20&nbsp;₽
+            </a>
+            <a href="." class="g g_button g-color_theme g-style_soft" data-to-view="win_bank_payment-po" data-g_icon=""
+               title="Пополнить баланс"></a>
+        </i>
+        <a href="/account/#to_account_informer" class="g g_button g-color_theme" data-g_icon=""
+           title="Уведомление"></a>
+    </i>
+    <i class="profile">
+        <i class="icon icon-caret-down"></i>
+        <img src="media/images/avatar.jpg" alt="avatar">
+    </i>
+</header>
+
+<div id="body">
+    <aside id="left_col">
+        <script defer="">requirejs(['component/tpl/layouts/leftmenu']);</script>
+        <ul id="leftmenu">
+            <li class="g_title">Поиск</li>
+            <li class="g-active">
+                <a class="g-active item" href="/project/keywords/5476772/" data-g_icon="" title="Поисковые запросы">
+                    <i>Поисковые запросы</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/dynamics/5476772/" data-g_icon="" title="Проверка позиций">
+                    <i>Проверка позиций</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/snapshots/5476772/" data-g_icon="" title="Снимки выдачи">
+                    <i>Снимки выдачи</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/competitors/5476772/" data-g_icon="" title="Мои конкуренты">
+                    <i>Мои конкуренты</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/analytics/5476772/" data-g_icon="" title="Аналитика">
+                    <i>Аналитика</i>
+                </a>
+            </li>
+            <li class="g_title">Реклама</li>
+            <li class="">
+                <a class="item" href="/project/broker/5476772/direct/" data-g_icon="" title="Яндекс.Директ">
+                    <i>Яндекс.Директ</i>
+                </a>
+            </li>
+            <li class="g_title">Аудит</li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/audit/" data-g_icon="" title="Анализ сайта">
+                    <i>Анализ сайта</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/indexing/" data-g_icon="" title="Индексация">
+                    <i>Индексация</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/watcher/" data-g_icon="" title="Радар">
+                    <i>Радар</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/sitemap/" data-g_icon="" title="Карта сайта">
+                    <i>Карта сайта</i>
+                </a>
+            </li>
+            <li class="g_title"></li>
+            <li class="">
+                <a class="item" href="/project/settings/5476772/" data-g_icon="" title="Настройки">
+                    <i>Настройки</i>
+                </a>
+            </li>
+            <li class="to_bottom">
+                <div class="item" data-action="expand"
+                     onclick="document.querySelector('html').classList.toggle('leftmenu_expanded')" data-g_icon=""
+                     title="Развернуть (z)">
+                    <i>Развернуть</i>
+                </div>
+                <div class="item" data-action="shrink"
+                     onclick="document.querySelector('html').classList.toggle('leftmenu_expanded')" data-g_icon=""
+                     title="Свернуть (z)">
+                    <i>Свернуть</i>
+                </div>
+            </li>
+            <li class="external">
+                <a class="item" data-g_icon="" href="http://util-skupkatex.ru" target="_blank">
+                    <i>util-skupkatex.ru</i>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <div id="content">
+        <div id="phrases_wrapper" class="view_3" style="display: flex;">
+
+            <div id="bar" class="g_theme_classic pad11" data-support_dialog_url="support/keywords">
+                <div class="fl">
+                    <div>
+                        <a href="." class="icon-core-standard btn to_view gray no_margin " rel="1"
+                           title="Режим блоков"></a>
+
+
+                        <a href="." class="icon-core-v3 btn to_view gray no_margin active" rel="3"></a>
+                        <a title="Корзина удаленных запросов" class="to_trash to_view btn gray icon-trash"
+                           target="_blank" rel="trash"></a>
+
+                        <a href="." data-to-view="win_master_positions-keywords:5476772" title="Импорт запросов"
+                           class="btn">
+                            <i class="icon-cloud-in"></i>
+                        </a>
+
+
+                        <a href="." name="filter" title="Фильтр" class="btn"><span class="icon-filter"></span></a>
+
+                        <a href="." data-top-popup="#popup_semantics" data-top-popup-p="3" data-top-popup-notch="1"
+                           class="icon-core-add btn" title="Подбор ключевых слов"></a>
+
+                        <a href="." name="frequency_go" title="Проверить частоту" class="icon-bars btn "></a>
+
+                        <a href="." title="Кластеризация ядра" data-top-popup="#popup_claster_open" data-top-popup-p="3"
+                           data-top-popup-notch="1" class="claster_open icon-make-group btn"
+                           style="margin-right:10px;"></a>
+                    </div>
+
+                </div>
+
+                <div class="board">
+                    <strong>
+                        Групп:
+                    </strong>
+
+                    <span class="ngroups"></span>
+                    (<span class="ngroups_on">2</span>
+                    <span class="icon-dot"></span>
+
+                    <span class="ngroups_off">0</span>
+                    <span class="icon-dot off"></span>)
+                    <br>
+
+                    <strong>Запросов:</strong>
+                    <span class="nphrases"></span>
+                    (<span class="nphrases_on">6</span>
+                    <span class="icon-dot"></span>
+
+                    <span class="nphrases_off">0</span>
+                    <span class="icon-dot off"></span>)
+
+                </div>
+
+            </div>
+            <div class="pad">
+                <input id="last_date" value="2022-07-06" type="hidden">
+                <input id="allow_traffic" value="1" type="hidden">
+
+                <div id="phrases_table" class="g_theme_classic flex stretch">
+                    <div class="col-1 flex column stretch">
+                        <i class="resizer"></i>
+                        <div id="phrases_groups" class="win ui-sortable" data-win_title="Группы">
+                            <div class="body top-scroll top-longlist" data-axis="xy"
+                                 style="--top-longlist-row-height:28px;">
+                                <longlist style="min-width: 358px; height: 56px; padding-top: 0px;">
+                                    <longlist_row class="row id-23265330" data-id="23265330" data-n="0">
+                                        <i class="cb_sel">
+                                            <input type="checkbox" class="g" name="selected" value="23265330"></i>
+                                        <i class="name renamer" title="скупка холодильников">
+                                            <i class="on on-1" title="Включить / Выключить группу"></i>
+                                            <i class="v">скупка холодильников</i>
+                                        </i>
+                                        <i class="count_keywords">3</i>
+                                        <i class="add_after">+</i>
+                                        <i class="del icon-trash" title="Удалить"></i>
+                                    </longlist_row>
+                                    <longlist_row class="row id-23265368" data-id="23265368" data-n="1">
+                                        <i class="cb_sel">
+                                            <input type="checkbox" class="g" name="selected" value="23265368">
+                                        </i>
+                                        <i class="name renamer" title="утилизация быт. техники">
+                                            <i class="on on-1" title="Включить / Выключить группу"></i>
+                                            <i class="v">утилизация быт. техники</i>
+                                        </i>
+                                        <i class="count_keywords">3</i>
+                                        <i class="add_after">+</i>
+                                        <i class="del icon-trash" title="Удалить"></i>
+                                    </longlist_row>
+                                </longlist>
+                            </div>
+                            <div class="top-scroll-bar axis-x"
+                                 style="display: none; width: 358px; height: 6px; left: 0px; bottom: -6px;">
+                                <div class="drag ui-draggable ui-draggable-handle" style="position: relative;"></div>
+                            </div>
+                            <div class="top-scroll-bar axis-y"
+                                 style="display: none; width: 6px; height: 368.844px; top: 54px; right: -6px;">
+                                <div class="drag ui-draggable ui-draggable-handle" style="position: relative;"></div>
+                            </div>
+                            <div class="top-scroll-pager" style="top: 54px; right: 0px; display: none;"><i
+                                    class="active">1</i><i>2</i><i>3</i></div>
+                            <div class="head">
+                                <div class="tabs ui-sortable">
+                                    <div class="tab tab tab_for_folder_0 active" title="/" style="max-width: 8px;">
+                                        <i class="name">/</i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                    <div class="tab tab tab_for_folder_-1 is_search_tab" title="">
+                                        <i class="name"></i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                </div>
+                                <div class="bar">
+                                    <i class="save_sort icon-save"></i>
+                                    <i class="select_fields">
+                                        <i class="icon-three-stripes-full"></i>
+                                    </i>
+                                    <i class="cb_sel">
+                                        <input type="checkbox" class="g" name="select_all" value=""></i>
+                                    <i class="name"><i class="filter-on on"></i>
+                                        Группы
+                                        <i class="sorter"></i>
+                                        <i class="to_search icon-search"></i>
+                                        <i class="to_add icon-plus-full"></i>
+                                        <i class="resizer"></i>
+                                    </i>
+                                    <i class="count_keywords">
+                                        Запросы
+                                        <i class="sorter"></i>
+                                    </i>
+                                    <i class="del">
+                                        <i class="del">&nbsp;</i>
+                                    </i>
+                                </div>
+                            </div>
+                            <div class="filter_bar" style="display: none;">
+                                <i class="name">
+                                    <label class="g g_input g_input-name" data-g_icon="">
+                                        <input type="text" name="name" class="g" placeholder="Поиск" autocomplete="no">
+                                    </label>
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-2 flex stretch">
+                        <div id="phrases_keywords" class="win ui-sortable" data-win_title="Запросы">
+                            <div class="body top-scroll top-longlist" data-axis="xy"
+                                 style="--top-longlist-row-height:28px;">
+                                <longlist style="height: 84px; padding-top: 0px;">
+                                    <longlist_row class="row id-20051234" data-id="20051234" data-n="0">
+                                        <i class="tags top-tag-setter fixed_cell" style="transform: translateX(0px);">
+                                            <i class="g-active" data-tag_id="1" data-tag_color_id="1"
+                                               title="Тег по умолчанию"></i>
+                                        </i>
+                                        <i class="target setted fixed_cell" data-top-popup="#popup_keywords_target"
+                                           data-top-popup-p="1" data-top-popup-notch="1" data-top-popup-pos-by="fixed"
+                                           title="https://util-skupkatex.ru/skupka/refrigerators/"
+                                           style="transform: translateX(0px);">
+                                            <i class="icon-link"></i>
+                                        </i>
+                                        <i class="cb_sel fixed_cell" style="transform: translateX(0px);">
+                                            <input type="checkbox" class="g" name="selected" value="20051234">
+                                        </i>
+                                        <i class="name renamer fixed_cell" title="скупка холодильников"
+                                           style="transform: translateX(0px);">
+                                            <i class="v">скупка холодильников</i>
+                                        </i>
+                                        <i class="path fixed_cell" style="transform: translateX(0px);">
+                                            <i>--</i>
+                                        </i>
+                                        <i class="add_after fixed_cell" style="transform: translateX(0px);">+</i>
+                                        <i class="del icon-trash" title="Удалить"></i>
+                                    </longlist_row>
+                                    <longlist_row class="row id-20051234" data-id="20051234" data-n="0">
+                                        <i class="tags top-tag-setter fixed_cell" style="transform: translateX(0px);">
+                                            <i class="g-active" data-tag_id="1" data-tag_color_id="1"
+                                               title="Тег по умолчанию"></i>
+                                        </i>
+                                        <i class="target setted fixed_cell" data-top-popup="#popup_keywords_target"
+                                           data-top-popup-p="1" data-top-popup-notch="1" data-top-popup-pos-by="fixed"
+                                           title="https://util-skupkatex.ru/skupka/refrigerators/"
+                                           style="transform: translateX(0px);">
+                                            <i class="icon-link"></i>
+                                        </i>
+                                        <i class="cb_sel fixed_cell" style="transform: translateX(0px);">
+                                            <input type="checkbox" class="g" name="selected" value="20051234">
+                                        </i>
+                                        <i class="name renamer fixed_cell" title="скупка холодильников"
+                                           style="transform: translateX(0px);">
+                                            <i class="v">скупка холодильников</i>
+                                        </i>
+                                        <i class="path fixed_cell" style="transform: translateX(0px);">
+                                            <i>--</i>
+                                        </i>
+                                        <i class="add_after fixed_cell" style="transform: translateX(0px);">+</i>
+                                        <i class="del icon-trash" title="Удалить"></i>
+                                    </longlist_row>
+                                    <longlist_row class="row id-20051234" data-id="20051234" data-n="0">
+                                        <i class="tags top-tag-setter fixed_cell" style="transform: translateX(0px);">
+                                            <i class="g-active" data-tag_id="1" data-tag_color_id="1" title="Тег по умолчанию"></i>
+                                        </i>
+                                        <i class="target setted fixed_cell" data-top-popup="#popup_keywords_target" data-top-popup-p="1" data-top-popup-notch="1" data-top-popup-pos-by="fixed"
+                                           title="https://util-skupkatex.ru/skupka/refrigerators/"
+                                           style="transform: translateX(0px);">
+                                            <i class="icon-link"></i>
+                                        </i>
+                                        <i class="cb_sel fixed_cell" style="transform: translateX(0px);">
+                                            <input type="checkbox" class="g" name="selected" value="20051234">
+                                        </i>
+                                        <i class="name renamer fixed_cell" title="скупка холодильников"
+                                           style="transform: translateX(0px);">
+                                            <i class="v">скупка холодильников</i>
+                                        </i>
+                                        <i class="path fixed_cell" style="transform: translateX(0px);">
+                                            <i>--</i>
+                                        </i>
+                                        <i class="add_after fixed_cell" style="transform: translateX(0px);">+</i>
+                                        <i class="del icon-trash" title="Удалить"></i>
+                                    </longlist_row>
+                                </longlist>
+                            </div>
+                            <div class="top-scroll-bar axis-x"
+                                 style="display: none; width: 533px; height: 6px; left: 0px; bottom: -6px;">
+                                <div class="drag ui-draggable ui-draggable-handle" style="position: relative;"></div>
+                            </div>
+                            <div class="top-scroll-bar axis-y"
+                                 style="display: none; width: 6px; height: 740.438px; top: 54px; right: -7px;">
+                                <div class="drag ui-draggable ui-draggable-handle" style="position: relative;"></div>
+                            </div>
+                            <div class="top-scroll-pager" style="top: 54px; right: -1px; display: none;"><i
+                                    class="active">1</i><i>2</i><i>3</i></div>
+                            <div class="head">
+                                <div class="tabs ui-sortable">
+                                    <div class="tab  tab tab_for_folder_-1 tab_for_group_-1 active" title="">
+                                        <i class="name">Тестовое название</i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                    <div class="tab  tab tab_for_folder_-1 tab_for_group_-1" title="">
+                                        <i class="name">Тестовое название</i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                    <div class="tab  tab tab_for_folder_-1 tab_for_group_-1 is_search_tab" title="">
+                                        <i class="name"></i>
+                                        <i class="close icon-remove"></i>
+                                    </div>
+                                </div>
+                                <div class="bar">
+                                    <i class="save_sort icon-save"></i>
+                                    <i class="select_fields">
+                                        <i class="icon-three-stripes-full"></i>
+                                    </i>
+                                    <i class="tags"></i>
+                                    <i class="target"></i>
+                                    <i class="cb_sel">
+                                        <input type="checkbox" class="g" name="select_all" value=""></i>
+                                    <i class="name">Запросы<i class="sorter"></i>
+                                        <i class="to_search icon-search"></i>
+                                        <i class="to_add icon-plus-full"></i>
+                                        <i class="to_import icon-cloud-in"
+                                           data-to-view="win_master_positions-keywords:5476772"></i>
+                                        <i class="resizer"></i>
+                                    </i>
+                                    <i class="path"></i>
+                                    <i class="del">
+                                        <i class="del">&nbsp;</i>
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" class="g-theme_regular" page="project" data-popup-open="false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Projects</title>
+    <link rel="stylesheet" href="media/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+</head>
+<body>
+<header id="top_panel" class="new-menu">
+    <i class="logo_wrapper">
+        <a class="module_logo" href="/" title="Топвизор">
+            <img src="media/images/logo.svg" alt="Топвизор" height="32"></a>
+    </i>
+    <i id="select_project_button">
+        <a onclick="togglePopUp()" href="#" class="g g_button g-color_theme g-style_soft" data-g_icon=""
+           title="Список проектов"></a>
+        <button class="g g_button g-color_theme g-style_soft" data-action="select-project" data-g_icon_2=""
+                title="Поиск проектов (s)">
+            <i class="g_ellipsis">Проекты</i>
+        </button>
+    </i>
+    <i id="top_panel_menu" class="menu template">
+        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"
+           style="padding: 0 5px"></a>
+        <i class="menu_item_bank">
+            <a href="/bank.html" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
+                95.20&nbsp;₽
+            </a>
+            <a href="." class="g g_button g-color_theme g-style_soft" data-to-view="win_bank_payment-po" data-g_icon=""
+               title="Пополнить баланс"></a>
+        </i>
+    </i>
+    <div id="popup_usermenu"
+         class="top-popup-wrapper p-from-top p3 top-popup-wrapper-shown"
+         style="width: 46px; height: 28px;
+          --top-popup-height:28px; --top-popup-right-bounding:1551.5px;
+          --top-popup-bottom-bounding:48px; --top-popup-top:12px;
+          --top-popup-left:1505.5px;">
+
+        <div class="full-page__close"  data-action="select-project"></div>
+
+        <div class="g_popup top-popup">
+            <ul class="content">
+                <bank></bank>
+                <li>
+                    <a href="/bank.html" data-g_icon="">
+                        Расходы
+                    </a>
+                </li>
+                <li class="hr"></li>
+                <li>
+                    <a href="/account.html" data-g_icon="">
+                        Настройки аккаунта
+                    </a>
+                </li>
+
+                <li class="hr g-only_pc"></li>
+                <li class="logins-el"><i class="a g-active" onclick="return logins.auth('14469')"><img
+                        src="media/images/avatar.jpg"><i>omi4sem@mail.ru</i></i></li>
+                <li class="hr"></li>
+                <li>
+                    <a onclick="Api.logout()" href="#" class="logout" data-g_icon="">
+                        Выйти из аккаунта
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <i class="profile" data-top-popup="#popup_usermenu">
+        <i class="icon icon-caret-down"></i>
+        <img src="media/images/avatar.jpg" alt="avatar">
+    </i>
+</header>
+<div id="popup_select_project" class="top-popup-wrapper p-from-top top-popup-wrapper-shown p3 full-page"
+     style="margin-left: 100px; --top-popup-height:32px; --top-popup-right-bounding:328px; --top-popup-bottom-bounding:40px; --top-popup-top:8px; --top-popup-left:96px;"
+     tabindex="0">
+    <div class="full-page__close"  data-action="select-project"></div>
+    <div class="g_popup top-popup" style="">
+        <ul class="content">
+            <li class="g_title" data-type="scheduled">Проверка по расписанию</li>
+        </ul>
+    </div>
+</div>
+<div class="content">
+    <div id="projects">
+        <div id="table_projects" class="top_table">
+            <i class="header">
+                <input type="checkbox" class="g" name="projects_check_all" value=""> <i class="total_selected">Выбрано: <i>0</i></i>
+
+                <i class="group_actions disabled">
+                    <i data-g_icon="" class="icon-refresh" data-top-popup="#popup_project_update" data-top-popup-p="3" data-top-popup-notch="1" title="Запустить проверку позиций"></i>
+                    <i data-g_icon="" class="icon-folder-alt" data-top-popup="#popup_project_folders" data-top-popup-p="3" data-top-popup-notch="1" title="Переместить в папку"></i>
+                    <i data-g_icon="" class="icon-archive-alt" data-top-popup="#popup_project_archive" data-top-popup-p="3" data-top-popup-notch="1" title="Перенести в архив"></i>
+                    <i data-g_icon="" class="icon-trash" data-top-popup="#popup_project_delete" data-top-popup-p="3" data-top-popup-notch="1" title="Удалить"></i>
+                </i>
+
+                <label class="g g_input g_input-project_search g_input_with_cleaner" data-g_icon=""><input type="text" class="g g_autochange" autocomplete="off" name="project_search" title="Название, URL, ID" placeholder="Название, URL, ID"><i data-action="g_input_clear" data-g_icon=""></i></label>
+                <i class="filters">
+                    <i data-g_icon="" data-top-popup="#popup_project_types" data-top-popup-p="3" data-top-popup-notch="1" title="Категория проекта"></i>
+
+                    <i id="select_tag_opener" data-top-popup-p="3" data-top-popup-notch="1" class="top-tag-selector">
+                        <i data-tag_id="0" data-tag_color_id="undefined" class="g-active" title="Все теги"></i>
+                    </i>
+
+                    <i data-g_icon="" data-top-popup="#popup_project_folders" data-top-popup-p="3" data-top-popup-notch="1" title="Папка с проектами">
+                        <i class="folder_name g-only_pc">Все папки</i>
+                    </i>
+                </i>
+
+                <i class="selected_project_type g-only_pc">Выбранная категория: <i class="val"></i></i>
+
+                <i class="delimiter"></i>
+
+                <a href="/create-project.html" class="btn btn-blue btn-mobile add_project_opener" data-to-view="win_master_create-name:0">
+                    <i>Создать проект</i>
+                    <i class="icon-plus-full"></i>
+                </a>
+            </i>
+
+            <i class="top_table_inner">
+                <i class="not_found by_all">
+                    <img src="media/images/projects-notfound.svg">
+                    <i class="title">Создайте свой первый проект</i>
+                    <i class="tip">9 инструментов для SEO и маркетинга.<br>Проверяйте позиции, подбирайте ключевые слова, отслеживайте изменения на сайте и многое другое.</i>
+                </i>
+                <i class="not_found by_filters">
+                    <img src="media/images/projects-notfound.svg">
+                    <i class="title">По фильтру не найдено ни одного проекта</i>
+                    <i class="tip">
+                        Попробуйте <i class="a" data-action="reset_filters">сбросить</i> все фильтры<br><i class="archive_search">
+                        или поискать в <a href="/support/projects/archive" target="_blank" class="a">Архиве</a></i><br>
+                    </i>
+                </i>
+                <i class="bar" data-shift="100" style="top: 100px">
+                    <longlist_cell data-name="cb" data-alias="name" class="top_sorter_item top_table_fixed_column_cell">
+                        <input type="checkbox" class="g" name="cb" value="">
+                        Название
+                    </longlist_cell>
+                    <longlist_cell data-name="positions_time" class="top_sorter_item">Дата</longlist_cell>
+                    <longlist_cell data-name="count_keywords" class="top_sorter_item">Запросов</longlist_cell>
+                </i>
+                <i class="body top-longlist" style="--top-longlist-row-height: 95px;">
+                    <longlist class="top_longlist_fixed_column" style="height: 475px; padding-top: 0px">
+
+                    </longlist>
+                    <longlist style="height: 475px; padding-top: 0px;">
+
+                    </longlist>
+                </i>
+            </i>
+        </div>
+    </div>
+</div>
+<div id="toolbar">
+    <a class="projects active"  data-top-popup="#popup_select_project" data-action="select-project" data-top-popup-p="3" data-top-popup-front="#body">
+        <i class="icon-file"></i>
+        <i>Проекты</i>
+    </a>
+
+
+    <a class="bank" >
+        <i class="icon-piggybank"></i>
+        <i>Банк</i>
+    </a>
+
+    <a class="account" data-top-popup='#popup_usermenu'  data-top-popup-p="3" data-top-popup-front="#body">
+        <img src="media/images/avatar.jpg" alt="avatar">
+        <i>Аккаунт</i>
+    </a>
+</div>
+
+<script src="media/js/profiles.js"></script>
+<script src="media/js/api.js"></script>
+<script src="media/js/projects.handlers.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en" class="g-theme_regular" data-popup-open="false" data-has_leftmenu="1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, initial-scale=0.0">
+    <title>Positions</title>
+    <link rel="stylesheet" href="media/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<header id="top_panel" class="flat">
+    <i class="logo_wrapper">
+        <a class="module_logo" href="/" title="Топвизор">
+            <img src="media/images/logo.svg" alt="Топвизор" height="32"></a>
+    </i>
+    <i id="select_project_button">
+        <a href="/projects.html" class="g g_button g-color_theme g-style_soft" data-g_icon=""
+           title="К списку проектов"></a>
+        <button class="g g_button g-color_theme g-style_soft" data-action="select-project" data-g_icon_2=""
+                title="Поиск проектов (s)">
+            <i class="g_ellipsis">Проекты</i>
+        </button>
+    </i>
+    <i id="top_panel_menu" class="menu template">
+        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"
+           style="padding: 0 5px"></a>
+        <i class="menu_item_bank">
+            <a href="/bank.html" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
+                95.20&nbsp;₽
+            </a>
+            <a href="." class="g g_button g-color_theme g-style_soft" data-to-view="win_bank_payment-po" data-g_icon=""
+               title="Пополнить баланс"></a>
+        </i>
+    </i>
+    <div id="popup_usermenu"
+         class="top-popup-wrapper p-from-top p3 top-popup-wrapper-shown"
+         style="width: 46px; height: 28px;
+          --top-popup-height:28px; --top-popup-right-bounding:1551.5px;
+          --top-popup-bottom-bounding:48px; --top-popup-top:12px;
+          --top-popup-left:1505.5px;">
+
+        <div class="full-page__close"  data-action="select-project"></div>
+
+        <div class="g_popup top-popup">
+            <ul class="content">
+                <bank></bank>
+                <li>
+                    <a href="/bank.html" data-g_icon="">
+                        Расходы
+                    </a>
+                </li>
+                <li class="hr"></li>
+                <li>
+                    <a href="/account.html" data-g_icon="">
+                        Настройки аккаунта
+                    </a>
+                </li>
+
+                <li class="hr g-only_pc"></li>
+                <li class="logins-el"><i class="a g-active" onclick="return logins.auth('14469')"><img
+                        src="media/images/avatar.jpg"><i>omi4sem@mail.ru</i></i></li>
+                <li class="hr"></li>
+                <li>
+                    <a onclick="Api.logout()" href="#" class="logout" data-g_icon="">
+                        Выйти из аккаунта
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <i class="profile" data-top-popup="#popup_usermenu">
+        <i class="icon icon-caret-down"></i>
+        <img src="media/images/avatar.jpg" alt="avatar">
+    </i>
+</header>
+
+<div id="popup_select_project" class="top-popup-wrapper p-from-top top-popup-wrapper-shown p3"
+     style=" --top-popup-height:32px; --top-popup-right-bounding:328px; --top-popup-bottom-bounding:40px; --top-popup-top:8px; --top-popup-left:96px;"
+     tabindex="0">
+
+    <div class="g_popup top-popup" style="">
+        <ul class="content">
+            <li class="g_title" data-type="scheduled">Проверка по расписанию</li>
+
+        </ul>
+    </div>
+</div>
+
+<div id="body">
+    <aside id="left_col">
+        <script defer="">requirejs(['component/tpl/layouts/leftmenu']);</script>
+        <ul id="leftmenu">
+            <li class="g_title">Поиск</li>
+            <li class="">
+                <a class="item" href="/requests-new.html" data-g_icon="" title="Поисковые запросы">
+                    <i>Поисковые запросы</i>
+                </a>
+            </li>
+            <li class="g-active">
+                <a class="g-active item" href="/positions.html" data-g_icon="" title="Проверка позиций">
+                    <i>Проверка позиций</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/snapshots/5476772/" data-g_icon="" title="Снимки выдачи">
+                    <i>Снимки выдачи</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/competitors/5476772/" data-g_icon="" title="Мои конкуренты">
+                    <i>Мои конкуренты</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/analytics/5476772/" data-g_icon="" title="Аналитика">
+                    <i>Аналитика</i>
+                </a>
+            </li>
+            <li class="g_title">Реклама</li>
+            <li class="">
+                <a class="item" href="/project/broker/5476772/direct/" data-g_icon="" title="Яндекс.Директ">
+                    <i>Яндекс.Директ</i>
+                </a>
+            </li>
+            <li class="g_title">Аудит</li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/audit/" data-g_icon="" title="Анализ сайта">
+                    <i>Анализ сайта</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/indexing/" data-g_icon="" title="Индексация">
+                    <i>Индексация</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/watcher/" data-g_icon="" title="Радар">
+                    <i>Радар</i>
+                </a>
+            </li>
+            <li class="">
+                <a class="item" href="/project/audit/5476772/sitemap/" data-g_icon="" title="Карта сайта">
+                    <i>Карта сайта</i>
+                </a>
+            </li>
+            <li class="g_title"></li>
+            <li class="">
+                <a class="item" href="/project/settings/5476772/" data-g_icon="" title="Настройки">
+                    <i>Настройки</i>
+                </a>
+            </li>
+            <li class="to_bottom">
+                <div class="item" data-action="expand"
+                     onclick="document.querySelector('html').classList.toggle('leftmenu_expanded')" data-g_icon=""
+                     title="Развернуть (z)">
+                    <i>Развернуть</i>
+                </div>
+                <div class="item" data-action="shrink"
+                     onclick="document.querySelector('html').classList.toggle('leftmenu_expanded')" data-g_icon=""
+                     title="Свернуть (z)">
+                    <i>Свернуть</i>
+                </div>
+            </li>
+            <li class="external">
+                <a class="item" data-g_icon="" href="http://util-skupkatex.ru" target="_blank">
+                    <i>util-skupkatex.ru</i>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <div id="content-positions">
+        <div id="bar" class="g_theme_classic pad11 dynamics_bar" data-support_dialog_url="support/rankings">
+            <div class="need_config_wrapper">
+
+
+                <div class="process">
+                    <div class="project_update_ok" data-title="Позиции были проверены менее 5 минут назад"></div>
+                    <div class="project_update_wait" style="" data-title="Задачи проекта добавлены в очередь.">
+                    </div>
+                    <div class="project_update_process" style="" data-title="Выполняется проверка позиций.">0%</div>
+                    <a href="#" class="project_update_go btn status0"
+                       data-title="Последнее обновление <br> 06.07.2022 12:00:30"></a>
+                </div>
+
+                <i class="icon-globe label"></i>
+                <i class="g_selector_region">
+                    <label class="g g_select g_select-searcher_key" data-value="1">
+                        <select class="g g_select_arrow" name="searcher_key">
+                        </select>
+                    </label>
+                    <label class="g g_select g_select-region_index g_select-region" data-value="2">
+                        <select class="g g_select_arrow" name="region_index">
+                        </select>
+                    </label>
+                </i>
+
+                <i class="icon-folder-open label"></i>
+                <i class="g_selector_group">
+                    <label class="g g_select g_select-searcher_key" data-value="1">
+                        <select class="g g_select_arrow" name="searcher_key">
+                        </select>
+                </label>
+                </i>
+
+                <i class="icon-calendar-16 label"></i>
+                <div class="g g_input g_input_range g_input_date_range position-calendar">
+                    <label class="g g_input g_input-date1 g_input_date " data-g_icon="">
+                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')" class="g g_date hasDatepicker not-empty" autocomplete="off" name="date1"
+                               value="2022-07-22" data-api-operator="GREATER_THAN_EQUALS" title="от" placeholder="от"
+                               id="dp1657176628063">
+                    </label>
+                    <i class="g_dash"></i>
+                    <label class="g g_input g_input-date2 g_input_date g-text_right" data-g_icon="">
+                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')"  class="g g_date hasDatepicker not-empty" autocomplete="off" name="date2"
+                               value="2022-07-22" data-api-operator="LESS_THAN_EQUALS" title="до" placeholder="до"
+                               id="dp1657176628064">
+                    </label>
+                </div>
+
+                </i>
+                <i class="no_common_view btn icon-cog" data-to-view="win_dynamics_settings-dynamics_settings"></i>
+                <a href="." class="btn icon-share" data-top-popup="#popup_dynamics_export" data-top-popup-p="3"
+                   data-top-popup-notch="1" title="Скачать"></a>
+            </div>
+
+            <i class="pin icon-pin"></i>
+
+            <div id="competitors" class="hidden">
+                <i class="competitors"></i><i data-id="-1" class="icon-flag-checkered btn btn-gray"></i>
+            </div>
+        </div>
+
+        <i class="g_theme_classic">
+            <div class="g_theme_classic pad11">
+                <div id="dynamics_summary_wrapper" class="">
+                    <div id="dynamics_summary" class="flex ">
+                        <div class="block tops with_filter flex">
+                            <div class="el" data-min_pos="1" data-max_pos="3">
+                                <div class="h">1-3<i class="percent">(0%)</i></div>
+                                <div class="data">
+                                    <i class="1_3">0</i>
+                                </div>
+                            </div>
+
+                            <div class="el" data-min_pos="1" data-max_pos="10">
+                                <div class="h">1-10<i class="percent">(0%)</i></div>
+                                <div class="data">
+                                    <i class="1_10">0</i>
+                                </div>
+                            </div>
+
+                            <div class="el" data-min_pos="11" data-max_pos="30">
+                                <div class="h">11-30<i class="percent">(0%)</i></div>
+                                <div class="data">
+                                    <i class="11_30">0</i>
+                                </div>
+                            </div>
+
+                            <div class="el" data-min_pos="31" data-max_pos="50">
+                                <div class="h">31-50<i class="percent">(0%)</i></div>
+                                <div class="data">
+                                    <i class="31_50">0</i>
+                                </div>
+                            </div>
+
+                            <div class="el" data-min_pos="51" data-max_pos="100">
+                                <div class="h">51-100<i class="percent">(0%)</i></div>
+                                <div class="data">
+                                    <i class="51_100">0</i>
+                                </div>
+                            </div>
+
+                            <div class="el" data-min_pos="101" data-max_pos="10000">
+                                <div class="h">100+<i class="percent">(0%)</i></div>
+                                <div class="data">
+                                    <i class="101_10000">0</i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="block graph_opener">
+                            <i class="btn "></i>
+                        </div>
+                        <div class="preloader" contenteditable="false" style="">
+                            <div class="preloader-window" style="width: 66px; height: 66px;"><i class="throbber"
+                                                                                                style="font-size: 66px; line-height: 66px; width: 66px; height: 66px; margin-top: -33px; margin-left: -33px; display: none;"></i><i
+                                    class="progress"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dynamics_table_wrapper" style="height: 395px;">
+                    <div class="loading" style="display: none;"></div>
+
+                    <div class="fixed_float_wrapper" style="height: 69px;">
+                        <div id="dynamics_table" class="new fixed_float frequency3_show frequency3_g_show"
+                             data-show_groups_names="1">
+                            <div class="header">
+                                <!-- Удаление даты проверки -->
+                                <div id="del_history_trigger" data-top-popup="#popup_del_history"
+                                     data-top-popup-p="4" data-top-popup-notch="1">
+                                    <a href="." title="Удалить результаты проверки за этот день"><span
+                                            class="icon-remove"></span>Удалить</a>
+                                    <div id="popup_del_history" class="template">
+                                        <div class="content">
+                                            <p>Полное удаление проверки за дату: <span class="date"></span> -
+                                                <strong>необратимая операция</strong>.<br>
+                                                Продолжить удаление?</p>
+                                        </div>
+                                        <div class="footer">
+                                            <i class="btn-transparent closer">Отменить</i>
+                                            <a href="." class="btn btn-red go closer">Удалить</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="hcol">
+                                    <div class="filter_phrases">
+                                        <a href="." class="icon arrow icon-sort-alt"
+                                           data-top-popup="#popup_select_sort" data-top-popup-p="3"
+                                           data-top-popup-notch="1"></a>
+                                        <div class="template" id="popup_select_sort">
+                                            <ul class="content">
+                                                <li><i class="a" data-field-name="name" data-direction="ASC">Имя
+                                                    А-Я</i></li>
+                                                <li><i class="a" data-field-name="name" data-direction="DESC">Имя
+                                                    Я-А</i></li>
+                                                <li><i class="a" data-field-name="volume" data-direction="DESC">Частота
+                                                    9-1</i></li>
+                                                <li><i class="a" data-field-name="volume" data-direction="ASC">Частота
+                                                    1-9</i></li>
+                                                <li><i class="a" data-field-name="target" data-direction="ASC">По
+                                                    целевой ссылке</i></li>
+                                                <li><i class="a" data-field-name="relevant_url"
+                                                       data-direction="ASC">По релевантной странице</i></li>
+                                                <li><i class="a" data-field-name="target_status"
+                                                       data-direction="DESC">Целевая = Релевантная ✓</i></li>
+                                                <li><i class="a" data-field-name="target_status"
+                                                       data-direction="ASC">Целевая = Релевантная ✗</i></li>
+                                                <li><i class="a" data-field-name="positions_delta()"
+                                                       data-direction="DESC">Изменение позиции за период</i></li>
+                                                <li><i class="a g-active">По умолчанию</i></li>
+                                            </ul>
+                                        </div>
+
+                                        <a href="." id="select_tag_opener" data-top-popup-p="3"
+                                           data-top-popup-notch="1" class="no_text top-tag-selector"
+                                           title="Фильтр по тегам" data-top-popup="#popup_for_008547608528882433"><i
+                                                data-tag_id="0" data-tag_color_id="undefined" class="g-active"
+                                                title="Все теги"></i></a>
+
+                                        <i class="icon-chain" data-top-popup="#popup_only_exists_first_date"
+                                           data-top-popup-p="3" data-top-popup-notch="1"></i>
+
+                                        <div class="template" id="popup_only_exists_first_date">
+                                            <ul class="content">
+                                                <li><i class="a" data-only_exists_first_date="1">Исключить поисковые
+                                                    запросы, добавленные за период</i></li>
+                                                <li><i class="a g-active" data-only_exists_first_date="0">Все
+                                                    добавленные поисковые запросы</i></li>
+                                            </ul>
+                                        </div>
+
+                                        <i class="seperator"></i>
+
+                                        <i class="icon-text" data-top-popup="#popup_dynamics_view"
+                                           data-top-popup-p="3" data-top-popup-notch="1"></i>
+
+                                        <div class="template" id="popup_dynamics_view">
+                                            <ul class="content">
+                                                <li><i class="a" data-value="1">Позиции</i></li>
+                                                <li><i class="a" data-value="2">Позиции и сниппеты</i></li>
+                                            </ul>
+                                        </div>
+
+                                        <i class="icon-contrast activated" data-top-popup="#popup_dynamics_painting"
+                                           data-top-popup-p="3" data-top-popup-notch="1"></i>
+
+                                        <div class="template" id="popup_dynamics_painting">
+                                            <ul class="content">
+                                                <li><i class="a" data-value="0">Топ, прогресс</i></li>
+                                                <li><i class="a" data-value="1">Рост / Падение</i></li>
+                                            </ul>
+                                        </div>
+
+                                        <i class="icon-folder_letter activated"
+                                           data-top-popup="#popup_dynamics_show_groups_names" data-top-popup-p="3"
+                                           data-top-popup-notch="1"></i>
+
+                                        <div class="template" id="popup_dynamics_show_groups_names">
+                                            <ul class="content">
+                                                <li><i class="a" data-value="0">Скрыть имена групп</i></li>
+                                                <li><i class="a" data-value="1">Показать имя слева от группы</i>
+                                                </li>
+                                                <li><i class="a" data-value="2">Показать имя над группой</i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td class="cb">
+                                                <i data-top-popup="#popup_view_group_target"
+                                                   data-aftershow="load_target_data" data-top-popup-p="2"
+                                                   data-top-popup-notch="1"
+                                                   class="target_status icon-link target_group"
+                                                   title="Установить целевую для всей группы"></i>
+                                            </td>
+
+                                            <td class="phrase" style="min-width: 230px">
+                                                <div>
+                                                        <span class="search_phrase_close">Запросы <small class="total">(0)</small>
+                                                            <a
+                                                                href="#" class="search_phrase icon-search"
+                                                                title="Поиск"></a></span>
+                                                    <span hidden class="search_phrase_open" style="margin-left: 0 !important;">
+ <label class="g g_input g_input-search_phrase_string g_input_with_cleaner" style="max-width: 50%"><input
+         style="display: block;outline: none;height: 25%;width: 100%;border-radius: 1px;border-color: blue;border-width: 1px;margin: 0;color: blue"
+         type="text" class="g"
+                                                                                   autocomplete="off"
+                                                                                   name="search_phrase_string"
+                                                                                   placeholder=" "><i
+         data-action="g_input_clear" data-g_icon=""></i></label> </span>
+                                                </div>
+                                            </td>
+
+                                            <td class="visitors_for_phrase">
+                                                Визиты
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="cols" style="width: auto;">
+                                    <div class="scrollbar hidden" style="display: block;">
+                                        <div class="l icon-caret-left btn" style="display: none;"></div>
+                                        <div class="r icon-caret-right btn" style="display: none;"></div>
+                                        <div class="inner" style="display: none;">
+                                            <div class="pin btn ui-draggable ui-draggable-handle"
+                                                 style="display: none; left: 0px;">...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table style="left: 0px;">
+                                        <tr>
+                                            <td class="date" colspan="1"
+                                                data-qualifiers-string="2022-07-06:5476772:2"><i title="06.07.2022"><i
+                                                    class="value" title="Отсортировать по позициям">06.07.2022</i><i
+                                                    class="stat"><i data-top-popup="#popup_change_top"
+                                                                    data-top-popup-pos-by="fixed"
+                                                                    data-top-popup-p="3" data-top-popup-notch="1"
+                                                                    title="Процент запросов в топ10 (для выбранной группы): 0%"><span
+                                                    class="percent"><i class="icon-percent"></i><sup>0</sup><span
+                                                    class="top"></span></span></i></i></i></td>
+                                            <td class="date" colspan="1"
+                                                data-qualifiers-string="2022-07-04:5476772:2"><i title="04.07.2022"><i
+                                                    class="value" title="Отсортировать по позициям">04.07.2022</i><i
+                                                    class="stat"><i data-top-popup="#popup_change_top"
+                                                                    data-top-popup-pos-by="fixed"
+                                                                    data-top-popup-p="3" data-top-popup-notch="1"
+                                                                    title="Процент запросов в топ10 (для выбранной группы): 0%"><span
+                                                    class="percent"><i class="icon-percent"></i><sup>0</sup><span
+                                                    class="top"></span></span></i></i></i></td>
+                                            <td class="date" colspan="1"
+                                                data-qualifiers-string="2022-07-03:5476772:2"><i title="03.07.2022"><i
+                                                    class="value" title="Отсортировать по позициям">03.07.2022</i><i
+                                                    class="stat"><i data-top-popup="#popup_change_top"
+                                                                    data-top-popup-pos-by="fixed"
+                                                                    data-top-popup-p="3" data-top-popup-notch="1"
+                                                                    title="Процент запросов в топ10 (для выбранной группы): 0%"><span
+                                                    class="percent"><i class="icon-percent"></i><sup>0</sup><span
+                                                    class="top"></span></span></i></i></i></td>
+                                            <td class="date" colspan="1"
+                                                data-qualifiers-string="2022-07-01:5476772:2"><i title="01.07.2022"><i
+                                                    class="value" title="Отсортировать по позициям">01.07.2022</i><i
+                                                    class="stat"><i data-top-popup="#popup_change_top"
+                                                                    data-top-popup-pos-by="fixed"
+                                                                    data-top-popup-p="3" data-top-popup-notch="1"
+                                                                    title="Процент запросов в топ10 (для выбранной группы): 0%"><span
+                                                    class="percent"><i class="icon-percent"></i><sup>0</sup><span
+                                                    class="top"></span></span></i></i></i></td>
+                                            <td class="date" colspan="1"
+                                                data-qualifiers-string="2022-06-29:5476772:2"><i title="29.06.2022"><i
+                                                    class="value" title="Отсортировать по позициям">29.06.2022</i><i
+                                                    class="stat"><i data-top-popup="#popup_change_top"
+                                                                    data-top-popup-pos-by="fixed"
+                                                                    data-top-popup-p="3" data-top-popup-notch="1"
+                                                                    title="Процент запросов в топ10 (для выбранной группы): 0%"><span
+                                                    class="percent"><i class="icon-percent"></i><sup>0</sup><span
+                                                    class="top"></span></span></i></i></i></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="body" style="margin-top: 0px;">
+                                <div class="hcol">
+                                    <table>
+                                    <tbody>
+
+                                    </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="cols" style="width: auto;">
+                                    <table style="left: 0px;">
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </i></div>
+    </div>
+</div>
+
+<script src="media/js/profiles.js"></script>
+<script src="media/js/api.js"></script>
+<script src="media/js/positions.handlers.js"></script>
+
+</body>
+</html>

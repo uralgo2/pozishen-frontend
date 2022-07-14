@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en" class="g-theme_regular" data-popup-open="false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="media/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<header id="top_panel" class="new-menu flat">
+    <i class="logo_wrapper">
+        <a class="module_logo" href="/" title="Топвизор">
+            <img src="media/images/logo.svg" alt="Топвизор" height="32"></a>
+    </i>
+    <i id="select_project_button">
+        <a href="/projects.html" class="g g_button g-color_theme g-style_soft" data-g_icon=""
+           title="К списку проектов"></a>
+        <button class="g g_button g-color_theme g-style_soft" data-action="select-project" data-g_icon_2=""
+                title="Поиск проектов (s)">
+            <i class="g_ellipsis">Проекты</i>
+        </button>
+    </i>
+    <i id="top_panel_menu" class="menu template">
+        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"
+           style="padding: 0 5px"></a>
+        <i class="menu_item_bank">
+            <a href="/bank.html" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
+                95.20&nbsp;₽
+            </a>
+            <a href="." class="g g_button g-color_theme g-style_soft" data-to-view="win_bank_payment-po" data-g_icon=""
+               title="Пополнить баланс"></a>
+        </i>
+    </i>
+    <div id="popup_usermenu"
+         class="top-popup-wrapper p-from-top p3 top-popup-wrapper-shown"
+         style="width: 46px; height: 28px;
+          --top-popup-height:28px; --top-popup-right-bounding:1551.5px;
+          --top-popup-bottom-bounding:48px; --top-popup-top:12px;
+          --top-popup-left:1505.5px;">
+
+        <div class="full-page__close"  data-action="select-project"></div>
+
+        <div class="g_popup top-popup">
+            <ul class="content">
+                <bank></bank>
+                <li>
+                    <a href="/bank.html" data-g_icon="">
+                        Расходы
+                    </a>
+                </li>
+                <li class="hr"></li>
+                <li>
+                    <a href="/account.html" data-g_icon="">
+                        Настройки аккаунта
+                    </a>
+                </li>
+
+                <li class="hr g-only_pc"></li>
+                <li class="logins-el"><i class="a g-active" onclick="return logins.auth('14469')"><img
+                        src="media/images/avatar.jpg"><i>omi4sem@mail.ru</i></i></li>
+                <li class="hr"></li>
+                <li>
+                    <a onclick="Api.logout()" href="#" class="logout" data-g_icon="">
+                        Выйти из аккаунта
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <i class="profile" data-top-popup="#popup_usermenu">
+        <i class="icon icon-caret-down"></i>
+        <img src="media/images/avatar.jpg" alt="avatar">
+    </i>
+</header>
+
+<div id="popup_select_project" class="top-popup-wrapper p-from-top top-popup-wrapper-shown p3 full-page"
+     style=" --top-popup-height:32px; --top-popup-right-bounding:328px; --top-popup-bottom-bounding:40px; --top-popup-top:8px; --top-popup-left:96px;"
+     tabindex="0">
+    <div class="full-page__close"  data-action="select-project"></div>
+    <div class="g_popup top-popup" style="">
+        <ul class="content">
+            <li class="g_title" data-type="scheduled">Проверка по расписанию</li>
+
+
+        </ul>
+    </div>
+</div>
+
+<div id="content">
+    <aside id="bank_menu">
+        <div class="bank_menu_inner">
+            <div class="row">
+
+                <a class="po card" data-to-view="win_bank_payment-po">
+                    <i class="label"><i class="icon-file"></i> ПО</i>
+                    <i class="watermark icon-tv"></i>
+
+                    <i class="balance g_user_balance"><i><i>₽</i> </i>94.6</i>
+
+                    <i class="details">
+                        <i>лицевой:</i> <i><i>₽</i> </i>94.6<br>
+                        <i>на тарифе:</i> <i><i>₽</i> </i>0 </i>
+
+                    <i class="btn btn-cyan">
+                        Пополнить баланс </i>
+                </a></div>
+
+            <div class="row">
+                <a class="card documents" data-to-view="win_bank_documents-documents">
+                    <i class="icon-print"></i><br>
+                    Счета и документы </a>
+
+                <div class="g_tariffs">
+                    <a data-tariff_id="0" class="checked active" data-to-view="win_bank_payment-tariff">
+                        <i class="name">XS</i>
+                        <i class="discount">
+                            Тариф<br> не выбран </i>
+                        <i class="is_active">Подключить тариф</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div id="bank">
+
+        <div id="table_bank_history" data-support_dialog_url="support/bank"
+             class="top_table g_theme_blue top-popup-front top_table-use_borders with_header with_footer use_document_scroll i-loaded-data"
+             style="--top-table-data-width:1594px; --top-table-column-left-1:12px;">
+            <i class="header" style="top: 52px;">
+                <i class="title g-only_pc">Операции банка</i>
+                <i class="top_table_total g-only_pc">(4)</i>
+
+                <div class="g g_input g_input_range g_input_date_range">
+                    <label class="g g_input g_input-date1 g_input_date " data-g_icon="">
+                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')" class="g g_date hasDatepicker not-empty" autocomplete="off" name="date1"
+                               value="2022-07-22" data-api-operator="GREATER_THAN_EQUALS" title="от" placeholder="от"
+                               id="dp1657176628063">
+                    </label>
+                    <i class="g_dash"></i>
+                    <label class="g g_input g_input-date2 g_input_date g-text_right" data-g_icon="">
+                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')"  class="g g_date hasDatepicker not-empty" autocomplete="off" name="date2"
+                               value="2022-07-22" data-api-operator="LESS_THAN_EQUALS" title="до" placeholder="до"
+                               id="dp1657176628064">
+                    </label>
+                </div>
+                <i class="delimiter"></i>
+                <i class="gray icon-share" data-action="history_export"></i>
+                <i class="top_table_border"></i>
+                <button class="g g_button g-color_blue g-style_soft filter-bar-opener">Фильтры</button>
+            </i>
+            <i class="top_table_inner" data-is-scrolled="0" data-has-scroll="0">
+                <i class="loading_bar"></i>
+                <i class="bar" data-shift="100" style="top: 100px;">
+                    <longlist_cell data-name="date" class="top_sorter_item">Дата</longlist_cell>
+                    <longlist_cell data-name="sum" class="multiline top_sorter_item">
+                        <i>Сумма</i>
+                        <i> руб.</i>
+                    </longlist_cell>
+                </i>
+                <i class="body top-longlist" style="--top-longlist-row-height:auto;">
+                    <longlist>
+
+                    </longlist>
+                </i>
+            </i>
+            <i class="footer" style="display: flex; right: 0; z-index: 20">
+                <i>Итого:</i>
+                <i data-name="total">–2.4</i>
+                <i class="top_table_border"></i>
+            </i>
+            <div style="width: calc(var(--top-table-offset-top));"></div>
+        </div>
+    </div>
+</div>
+
+<div id="toolbar">
+    <a class="projects"  data-top-popup="#popup_select_project" data-action="select-project" data-top-popup-p="3" data-top-popup-front="#body">
+        <i class="icon-file"></i>
+        <i>Проекты</i>
+    </a>
+
+
+    <a class="bank active" >
+        <i class="icon-piggybank"></i>
+        <i>Банк</i>
+    </a>
+
+    <a class="account " data-top-popup="#popup_usermenu"  data-top-popup-p="3" data-top-popup-front="#body">
+        <img src="media/images/avatar.jpg" alt="avatar">
+        <i>Аккаунт</i>
+    </a>
+</div>
+
+<script src="media/js/api.js"></script>
+<script src="media/js/bank.handlers.js"></script>
+<script src="media/js/profiles.js"></script>
+
+</body>
+</html>

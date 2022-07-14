@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" class="g-theme_regular" data-popup-open="false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="media/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<header id="top_panel" class="sticky">
+    <i class="logo_wrapper">
+        <a class="module_logo" href="/" title="Topvisor">
+            <img src="media/images/logo.svg" alt="Topvisor" height="32">
+        </a>
+    </i>
+    <i  id="top_panel_menu" class="menu template ">
+        <a href="/updates/" class="g g_button g-color_theme" title="Обновления" data-g_icon=""></a>
+        <a href="/support/" class="g g_button g-color_theme" title="Справочный центр" data-g_icon=""></a>
+    </i>
+    <a class="g g_button g-color_theme " data-button-type="auth" data-g_icon="">Войти</a>
+    <a  class="g g_button g-color_theme " data-button-type="reg"  data-g_icon="">Регистрация</a>
+
+</header>
+<div role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-draggable">
+
+    <div id="win_auth" class="g_theme_lite ui-dialog-content ui-widget-content" tabindex="-1" data-select-open="false">
+        <div class="modal-layer modal-layer-header">
+            <div data-order="0" data-view-page="auth">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Войти</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close"></i>
+                </div>
+            </div>
+            <div data-order="1" data-view-page="reg">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Быстрая регистрация</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close" data-to-view="win_auth-auth"></i>
+                </div>
+            </div>
+            <div data-order="2" data-view-page="reg-sended">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Быстрая регистрация</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close" data-to-view="win_auth-reg"></i>
+                </div>
+            </div>
+            <div data-order="3" data-view-page="forget">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Восстановление пароля</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close" data-to-view="win_auth-auth"></i>
+                </div>
+            </div>
+            <div data-order="4" data-view-page="forget-sended">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Восстановление пароля</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close" data-to-view="win_auth-forget"></i>
+                </div>
+            </div>
+        </div>
+        <div id="popup_win_auth_page_selector" class="template">
+            <ul class="content">
+                <li><i class="a" data-to-view="win_auth-auth">Войти</i></li>
+                <li><i class="a" data-to-view="win_auth-reg">Быстрая регистрация</i></li>
+                <li><i class="a" data-to-view="win_auth-forget">Восстановление пароля</i></li>
+            </ul>
+        </div>
+        <div class="modal-layer modal-layer-body">
+            <div data-order="0" data-view-page="auth" class="top-popup-front">
+                <div class="modal-body">
+                    <form name="auth" action="." method="post">
+                        <input type="email" class="g" autocomplete="off" name="authorisation_login"
+                               title="Введите E-mail" placeholder="Введите E-mail">
+                        <input type="password" class="g" autocomplete="off" name="authorisation_pass"
+                               title="Введите пароль" placeholder="Введите пароль">
+                        <p href="." data-to-view="win_auth-forget">Забыли пароль?</p>
+                        <p id="authError" style="text-align: center; color: red;"></p>
+                        <button class="btn btn-cyan" type="submit">Войти в аккаунт</button>
+                        <input type="hidden" class="g" autocomplete="off" name="authorisation_redirect_to" value="/">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    Нет аккаунта? <p href="." data-to-view="win_auth-reg">Зарегистируйтесь</p>
+                </div>
+            </div>
+            <div data-order="1" data-view-page="reg" class="top-popup-front">
+                <div class="modal-body">
+                    <form name="reg" action="." method="post">
+                        <input type="email" class="g" autocomplete="off" name="email" title="Введите E-mail"
+                               placeholder="Введите E-mail">
+                        <input type="password" class="g" autocomplete="off" name="registration_pass"
+                               title="Введите пароль" placeholder="Введите пароль">
+                        <input type="password" class="g" autocomplete="off" name="registration_pass_confirm"
+                               title="Повторите пароль" placeholder="Повторите пароль">
+                        <p></p>
+                        <p id="regError" style="text-align: center; color: red;"></p>
+                        <button class="btn btn-cyan" type="submit">Регистрация</button>
+
+                        <div class="text">
+                            Регистрируясь, вы соглашаетесь с <a href="/confirm/" target="_blank">Пользовательским
+                            соглашением</a> и <a href="/privacy/" target="_blank">Обработкой персональных данных</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">Уже регистрировались? <p data-to-view="win_auth-auth">Войти</p></div>
+            </div>
+            <div data-order="2" data-view-page="reg-sended" class="top-popup-front">
+                <div class="modal-body">
+                    <img src="/media/images/email_envelope.png" alt="email envelope" class="email_envelope">
+
+                    <div class="text">
+                        Cсылка для востановления пароля отправлена на почту <a class="email"></a><br><br>
+
+                        Если письмо не пришло, проверьте папку <b>спам</b> или обратитесь в <a
+                            href="mailto:support@topvisor.com">службу поддержки</a></div>
+                </div>
+                <div class="modal-footer"><p href="." data-to-view="win_auth-auth"
+                                             class="full_width btn btn-cyan">Войти</p></div>
+            </div>
+            <div data-order="3" data-view-page="forget" class="top-popup-front">
+                <div class="modal-body">
+                    <form name="forget" action="." method="post">
+                        <input type="email" class="g" autocomplete="off" name="email" title="Введите E-mail"
+                               placeholder="Введите E-mail">
+                        <p id="restoreError" style="text-align: center; color: red;"></p>
+                        <button class="btn btn-cyan" type="submit">Восстановить пароль</button>
+                    </form>
+                </div>
+                <div class="modal-footer"><p data-to-view="win_auth-auth">Войти</p> или <p data-to-view="win_auth-reg">зарегистрироваться</p>
+                </div>
+            </div>
+            <div data-order="4" data-view-page="forget-sended" class="top-popup-front">
+                <div class="modal-body">
+                    <img src="/media/images/email_envelope.png" alt="email envelope" class="email_envelope">
+
+                    <div class="text">
+                        Cсылка для востановления пароля отправлена на почту <a class="email"></a><br><br>
+
+                        Если письмо не пришло, проверьте папку <b>спам</b> или обратитесь в <a
+                            href="mailto:support@topvisor.com">службу поддержки</a></div>
+                </div>
+                <div class="modal-footer">
+                    <p data-to-view="win_auth-auth" class="full_width btn btn-cyan">Войти</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui-widget-overlay ui-front" onclick="closePopUp()"></div>
+
+<div id="content">
+
+    <div id="accountWrapper">
+        <div id="account">
+            <form id="changePassword">
+                <input type="password" class="g" autocomplete="off" name="change_pass"
+                       title="Введите новый пароль" placeholder="Введите новый пароль">
+                <br><br>
+                <input type="password" class="g" autocomplete="off" name="change_pass_confirm"
+                       title="Повторите новый пароль" placeholder="Повторите новый пароль">
+                <p></p>
+                <br>
+                <p id="changeError"></p>
+                <br>
+                <br>
+                <button class="btn btn-cyan" type="submit">Изменить пароль</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="media/js/landing.js"></script>
+<script src="media/js/api.js"></script>
+<script src="media/js/restore.handlers.js"></script>
+
+</body>
+</html>

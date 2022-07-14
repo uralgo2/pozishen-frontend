@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en"
+      class="g-theme_regular"
+      data-popup-open="false"
+      style="--100vh:802px; --scrollbar-width:6px; --document-scrollbar-width:0px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="media/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<header id="top_panel" class="sticky">
+    <i class="logo_wrapper">
+        <a class="module_logo" href="/" title="Topvisor">
+            <img src="media/images/logo.svg" alt="Topvisor" height="32">
+        </a>
+    </i>
+    <i style="display: none" id="top_panel_menu" class="menu template unloggedButtons">
+        <a href="/updates/" class="g g_button g-color_theme" title="Обновления" data-g_icon=""></a>
+        <a href="/support/" class="g g_button g-color_theme" title="Справочный центр" data-g_icon=""></a>
+    </i>
+    <a style="display: none" class="g g_button g-color_theme unloggedButtons" data-button-type="auth" data-g_icon="">Войти</a>
+    <a style="display: none" class="g g_button g-color_theme unloggedButtons" data-button-type="reg"  data-g_icon="">Регистрация</a>
+
+    <i style="display: none" id="top_panel_menu" class="menu template loggedButtons">
+        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"
+           style="padding: 0 5px"></a>
+        <i class="menu_item_bank">
+            <a href="/bank.html" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
+                95.20&nbsp;₽
+            </a>
+            <a href="." class="g g_button g-color_theme g-style_soft" data-to-view="win_bank_payment-po" data-g_icon=""
+               title="Пополнить баланс"></a>
+        </i>
+    </i>
+    <div style="display: none" id="popup_usermenu"
+         class="top-popup-wrapper p-from-top p3 top-popup-wrapper-shown loggedButtons"
+         style="width: 46px; height: 28px;
+          --top-popup-height:28px; --top-popup-right-bounding:1551.5px;
+          --top-popup-bottom-bounding:48px; --top-popup-top:12px;
+          --top-popup-left:1505.5px;">
+
+        <div class="full-page__close"  data-action="select-project"></div>
+
+        <div class="g_popup top-popup">
+            <ul class="content">
+                <bank></bank>
+                <li>
+                    <a href="/bank.html" data-g_icon="">
+                        Расходы
+                    </a>
+                </li>
+                <li class="hr"></li>
+                <li>
+                    <a href="/account.html" data-g_icon="">
+                        Настройки аккаунта
+                    </a>
+                </li>
+
+                <li class="hr g-only_pc"></li>
+                <li class="logins-el"><i class="a g-active" onclick="return logins.auth('14469')"><img
+                        src="media/images/avatar.jpg"><i>omi4sem@mail.ru</i></i></li>
+                <li class="hr"></li>
+                <li>
+                    <a href="#" onclick="Api.logout()" class="logout" data-g_icon="">
+                        Выйти из аккаунта
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <i style="display: none" class="profile loggedButtons" data-top-popup="#popup_usermenu">
+        <i class="icon icon-caret-down"></i>
+        <img src="media/images/avatar.jpg" alt="avatar">
+    </i>
+</header>
+<div class="body-content"></div>
+<footer class="the_footer">
+    <div class="wrapper">
+        <div class="the_footer_card the_footer_card_tv"></div>
+        <div class="the_footer_card the_footer_card_tv_text">
+            <div>Мы упрощаем жизнь SEO-специалистам, владельцам сайтов и интернет-маркетологам.</div>
+            <div>Доверьте рутину нам, и пусть работа приносит удовольствие!</div>
+        </div>
+
+        <div class="the_footer_card the_footer_card_social">
+            <div class="g_title">Соцсети</div>
+            <a href="https://telegram.me/topvisor/" title="Telegram канал" target="_blank"></a>
+            <a href="https://vk.com/topvisor" title="Мы ВКонтакте" target="_blank"></a>
+            <a href="https://twitter.com/topvisor_ru" title="Мы в Twitter" target="_blank"></a>
+        </div>
+
+        <a href="//journal.topvisor.com" target="_blank" class="the_footer_card the_footer_card_journal">
+            <img src="media/images/Footer/Decorations/journalText.svg" width="352" height="34" alt="Topvisor Journal">
+        </a>
+
+        <div class="the_footer_card the_footer_card_exts">
+            <div class="g_title">Расширение для нумерации позиций</div>
+            <p>Нумерация позиций прямо<br> на странице результатов поиска</p>
+
+            <a href="https://chrome.google.com/webstore/detail/%D1%82%D0%BE%D0%BF%D0%B2%D0%B8%D0%B7%D0%BE%D1%80/plnkpibenfnalbonffhlgleoldpcjijb?hl=ru"
+               data-name="chrome" target="_blank">
+                <img src="media/images/Footer/Browsers/chrome.svg" width="32" height="32" alt="chrome">
+                Установить для Google Chrome
+            </a>
+            <a href="https://addons.mozilla.org/ru/firefox/addon/topvisor/" data-name="firefox" target="_blank">
+                <img src="media/images/Footer/Browsers/firefox.svg" width="32" height="32" alt="firefox">
+                Установить для Firefox
+            </a>
+        </div>
+
+        <div class="the_footer_card the_footer_card_contact">
+            <p>Мы всегда готовы помочь! Пишите на почту :</p>
+            <a class="g_title" href="mailto:support@topvisor.com">support@topvisor.com</a>
+
+            <p>Или звоните по телефону:</p>
+            <a class="g_title" href="tel:+7 (800) 500-67-87">8 (800) 500-67-87</a>
+        </div>
+
+        <div class="the_footer_card the_footer_card_apps">
+            <div class="g_title">Ваши проекты всегда под рукой</div>
+
+            <a href="https://apps.apple.com/ru/app/id933169086" target="_blank">
+                <img src="media/images/Footer/Phones/iphone-outline.svg" alt="iphone-outline">
+                <img src="media/images/Footer/Phones/appStore.svg" height="50" alt="appStore">
+            </a>
+
+            <a href="https://play.google.com/store/apps/details?id=ru.topvisor.app&amp;hl=ru" target="_blank">
+                <img src="media/images/Footer/Phones/android-outline.svg" alt="android-outline">
+                <img src="media/images/Footer/Phones/googlePlay.svg" height="50" alt="googlePlay">
+            </a>
+        </div>
+
+        <div class="the_footer_cards">
+            <a href="/ru/card/" class="the_footer_card the_footer_card_requisites">
+                <div class="g_title">Реквизитка</div>
+                <p>Реквизиты компании</p>
+
+                <img src="media/images/Footer/Decorations/receipt.svg" alt="Реквизитка"
+                     class="the_footer_card_image_float">
+                <img src="media/images/Footer/Decorations/receipt.svg" alt="Реквизитка"
+                     class="the_footer_card_image_float">
+            </a>
+
+            <a href="/public/pages/ru/topvisor.pdf" target="_blank" class="the_footer_card the_footer_card_media">
+                <div class="g_title">Презентация</div>
+                <p>Всё о нас</p>
+
+                <img src="media/images/Footer/Decorations/projector.svg" alt="Презентация"
+                     class="the_footer_card_image_float">
+            </a>
+        </div>
+
+        <a href="/friends/" class="the_footer_card the_footer_card_friends">
+            <div class="g_title">Лучшие друзья</div>
+
+            <div class="the_footer_card_image_float"></div>
+        </a>
+
+        <div class="the_footer_card the_footer_card_payments">
+            <div class="g_title">Способы пополнения баланса</div>
+
+            <img src="media/images/Footer/Banks/tinkoff.svg" width="96" height="40" alt="tinkoff">
+            <img src="media/images/Footer/Banks/legalEntity.svg" width="90" height="40" alt="tinkoff">
+            <img src="media/images/Footer/Banks/applePay.svg" width="52" height="40" alt="applePay">
+            <img src="media/images/Footer/Banks/googlePay.svg" width="57" height="40" alt="googlePay">
+            <img src="media/images/Footer/Banks/sb.svg" width="78" height="40" alt="sberPay">
+            <img src="media/images/Footer/Banks/visa.svg" width="78" height="40" alt="visa">
+            <img src="media/images/Footer/Banks/masterCard.svg" width="52" height="40" alt="masterCard">
+            <img src="media/images/Footer/Banks/sbp.svg" width="68" height="40" alt="sbp">
+            <img src="media/images/Footer/Banks/qiwi.svg" width="75" height="40" alt="qiwi">
+            <img src="media/images/Footer/Banks/paddle.svg" width="75" height="40" alt="paddle">
+            <img src="media/images/Footer/Banks/mir.svg" width="90" height="40" alt="mir">
+            <img src="media/images/Footer/Banks/yooMoney.svg" width="115" height="40" alt="yooMoney">
+
+            <div class="the_footer_card_image_float"></div>
+        </div>
+
+        <div class="the_footer_menu_wrapper">
+            <div class="the_footer_menu">
+                <div class="g_title">Основные инструменты</div>
+
+                <a href="/ru/rank-tracker/">Проверка позиций сайта</a>
+                <a href="/ru/support/competitors/" class="the_footer_new">Анализ конкурентов</a>
+                <a href="/ru/snapshots/">Снимки поисковой выдачи</a>
+                <a href="/ru/website-auditor/">Технический анализ сайта</a>
+                <a href="/ru/support/keywords/volume/">Проверка частоты запросов</a>
+                <a href="/ru/watcher/">Радар (отслеживание изменений)</a>
+            </div>
+
+            <div class="the_footer_menu">
+                <div class="g_title">Бесплатные</div>
+
+                <a href="/tpvsr/">Сокращатель ссылок</a>
+                <a href="/ru/free-rank-tracker/">Проверка позиций за XML-лимиты</a>
+                <a href="/ru/updates/">Апдейты Яндекса и Google</a>
+                <a href="/ru/support/keywords/research/magnet/">Магнит (сбор запросов)</a>
+                <a href="/ru/academy-seo-start/" class="the_footer_new">Топвизор-Академия</a>
+            </div>
+
+            <div class="the_footer_menu">
+                <div class="g_title">Дополнительные</div>
+                <a href="/ru/keyword-research/">Подбор ключевых слов</a>
+                <a href="/ru/keyword-suggestions/">Сбор поисковых подсказок</a>
+                <a href="/ru/clustering/">Кластеризация запросов</a>
+                <a href="/ru/support/audit/indexed/">Проверка индексации страниц</a>
+                <a href="/ru/support/audit/sitemap/">Генератор карты сайта</a>
+                <a href="/ru/bid-manager/">Бид-менеджер</a>
+
+                <a href="/ru/affiliate-program/" class="the_footer_new">Партнерская программа</a>
+            </div>
+
+            <div class="the_footer_menu">
+                <div class="g_title">Вопросы</div>
+
+                <a href="/ru/pricing/" class="g-hightlite">Инструменты и цены</a>
+                <a href="/ru/support/">Справочный центр</a>
+                <a href="/ru/api/v2/">API для разработчиков</a>
+                <a href="/ru/support/bank/legalpayment/">Оплата по безналу от Юр.лиц</a>
+                <a href="/ru/support/bank/legalpayment/e-doc/">Эл. документооборот (ЭДО)</a>
+                <a href="/ru/support/start/ticket-request-system/">Тикет-система</a>
+            </div>
+        </div>
+
+        <div class="the_footer_copyright">
+            <div>
+                <img src="media/images/Footer/Decorations/copyright.svg" width="32" height="32" alt="copyright">
+                2013 - 2022
+            </div>
+
+            <div>
+                <img src="media/images/Footer/Decorations/ministryOfDigitalDevelopment.svg" width="32" height="32"
+                     alt="ministry of digital development">
+
+                <div>
+                    <a href="/public/pages/card/akkreditatciia_minkomsviazi.pdf" target="_blank">Аккредитация
+                        Минкомсвязи РФ № 4977</a>,<br>
+                    <a href="https://reestr.digital.gov.ru/reestr/302122/" target="_blank">включен в реестр российского
+                        ПО № 773</a>
+                </div>
+            </div>
+
+            <div>
+                <img src="media/images/Footer/Decorations/trademark.svg" width="32" height="32"
+                     alt="ministry of digital development">
+
+                <div>
+                    Товарный знак №
+                    <a href="http://www1.fips.ru/fips_servl/fips_servlet?DB=RUTM&amp;DocNumber=548857" target="_blank">548857</a>,
+                    <a href="http://www1.fips.ru/fips_servl/fips_servlet?DB=RUTM&amp;DocNumber=594688" target="_blank">594688</a>,
+                    <a href="http://www1.fips.ru/fips_servl/fips_servlet?DB=RUTM&amp;DocNumber=678845" target="_blank">678845</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="the_footer_docs">
+            <div>
+                <a href="/ru/confirm-rub/">Пользовательское соглашение (RUB)</a>
+                <a href="/ru/confirm-usd/">Пользовательское соглашение (USD)</a>
+            </div>
+
+            <div>
+                <a href="/ru/affiliate-offer/">Партнерский договор-оферта</a>
+                <a href="/ru/cookie-policy/">Политика использования Cookie</a>
+            </div>
+
+            <div>
+                <a href="/ru/privacy/">Обработка персональных данных</a>
+                <a href="/ru/shortener-policy/">Правила использования Tpv.sr</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-draggable">
+
+    <div id="win_auth" class="g_theme_lite ui-dialog-content ui-widget-content" tabindex="-1" data-select-open="false">
+        <div class="modal-layer modal-layer-header">
+            <div data-order="0" data-view-page="auth">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Войти</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close"></i>
+                </div>
+            </div>
+            <div data-order="1" data-view-page="reg">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Быстрая регистрация</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close" data-to-view="win_auth-auth"></i>
+                </div>
+            </div>
+            <div data-order="2" data-view-page="reg-sended">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Быстрая регистрация</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close" data-to-view="win_auth-reg"></i>
+                </div>
+            </div>
+            <div data-order="3" data-view-page="forget">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Восстановление пароля</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close" data-to-view="win_auth-auth"></i>
+                </div>
+            </div>
+            <div data-order="4" data-view-page="forget-sended">
+                <div class="modal-header">
+                    <i class="modal-menu-opener" data-popup-action="select-toggle" data-g_icon=""></i>
+                    <i class="g_title">Восстановление пароля</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close" data-to-view="win_auth-forget"></i>
+                </div>
+            </div>
+        </div>
+        <div id="popup_win_auth_page_selector" class="template">
+            <ul class="content">
+                <li><i class="a" data-to-view="win_auth-auth">Войти</i></li>
+                <li><i class="a" data-to-view="win_auth-reg">Быстрая регистрация</i></li>
+                <li><i class="a" data-to-view="win_auth-forget">Восстановление пароля</i></li>
+            </ul>
+        </div>
+        <div class="modal-layer modal-layer-body">
+            <div data-order="0" data-view-page="auth" class="top-popup-front">
+                <div class="modal-body">
+                    <form name="auth" action="." method="post">
+                        <input type="email" class="g" autocomplete="off" name="authorisation_login"
+                               title="Введите E-mail" placeholder="Введите E-mail">
+                        <input type="password" class="g" autocomplete="off" name="authorisation_pass"
+                               title="Введите пароль" placeholder="Введите пароль">
+                        <p href="." data-to-view="win_auth-forget">Забыли пароль?</p>
+                        <p id="authError" style="text-align: center; color: red;"></p>
+                        <button class="btn btn-cyan" type="submit">Войти в аккаунт</button>
+                        <input type="hidden" class="g" autocomplete="off" name="authorisation_redirect_to" value="/">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    Нет аккаунта? <p href="." data-to-view="win_auth-reg">Зарегистируйтесь</p>
+                </div>
+            </div>
+            <div data-order="1" data-view-page="reg" class="top-popup-front">
+                <div class="modal-body">
+                    <form name="reg" action="." method="post">
+                        <input type="email" class="g" autocomplete="off" name="email" title="Введите E-mail"
+                               placeholder="Введите E-mail">
+                        <input type="password" class="g" autocomplete="off" name="registration_pass"
+                               title="Введите пароль" placeholder="Введите пароль">
+                        <input type="password" class="g" autocomplete="off" name="registration_pass_confirm"
+                               title="Повторите пароль" placeholder="Повторите пароль">
+                        <p></p>
+                        <p id="regError" style="text-align: center; color: red;"></p>
+                        <button class="btn btn-cyan" type="submit">Регистрация</button>
+
+                        <div class="text">
+                            Регистрируясь, вы соглашаетесь с <a href="/confirm/" target="_blank">Пользовательским
+                            соглашением</a> и <a href="/privacy/" target="_blank">Обработкой персональных данных</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">Уже регистрировались? <p data-to-view="win_auth-auth">Войти</p></div>
+            </div>
+            <div data-order="2" data-view-page="reg-sended" class="top-popup-front">
+                <div class="modal-body">
+                    <img src="/media/images/email_envelope.png" alt="email envelope" class="email_envelope">
+
+                    <div class="text">
+                        Cсылка для востановления пароля отправлена на почту <a class="email"></a><br><br>
+
+                        Если письмо не пришло, проверьте папку <b>спам</b> или обратитесь в <a
+                            href="mailto:support@topvisor.com">службу поддержки</a></div>
+                </div>
+                <div class="modal-footer"><p href="." data-to-view="win_auth-auth"
+                                             class="full_width btn btn-cyan">Войти</p></div>
+            </div>
+            <div data-order="3" data-view-page="forget" class="top-popup-front">
+                <div class="modal-body">
+                    <form name="forget" action="." method="post">
+                        <input type="email" class="g" autocomplete="off" name="email" title="Введите E-mail"
+                               placeholder="Введите E-mail">
+                        <p id="restoreError" style="text-align: center; color: red;"></p>
+                        <button class="btn btn-cyan" type="submit">Восстановить пароль</button>
+                    </form>
+                </div>
+                <div class="modal-footer"><p data-to-view="win_auth-auth">Войти</p> или <p data-to-view="win_auth-reg">зарегистрироваться</p>
+                </div>
+            </div>
+            <div data-order="4" data-view-page="forget-sended" class="top-popup-front">
+                <div class="modal-body">
+                    <img src="/media/images/email_envelope.png" alt="email envelope" class="email_envelope">
+
+                    <div class="text">
+                        Cсылка для востановления пароля отправлена на почту <a class="email"></a><br><br>
+
+                        Если письмо не пришло, проверьте папку <b>спам</b> или обратитесь в <a
+                            href="mailto:support@topvisor.com">службу поддержки</a></div>
+                </div>
+                <div class="modal-footer">
+                    <p data-to-view="win_auth-auth" class="full_width btn btn-cyan">Войти</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui-widget-overlay ui-front" onclick="closePopUp()"></div>
+
+
+<script src="media/js/landing.js"></script>
+<script src="media/js/profiles.js"></script>
+<script src="media/js/api.js"></script>
+<script src="media/js/index.handlers.js"></script>
+</body>
+</html>
