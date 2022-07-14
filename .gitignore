@@ -1,2 +1,4 @@
 # Project exclude paths
 /верстка/node_modules/
+/верстка/
+/old/

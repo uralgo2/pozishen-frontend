@@ -67,7 +67,7 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
             row_info.innerHTML =
                 `
                             <longlist_cell data-name="positions_time">
-                                <i class="icon-refresh update" data-top-popup="#popup_project_update" data-top-popup-p="2" title="Запустить проверку"></i>
+                                <i id="projectUpdate${project.id}" onclick="collect(${project.id})" class="icon-refresh update" data-top-popup="#popup_project_update" data-top-popup-p="2" title="Запустить проверку"></i>
                                 <i class="date">
                                     ${project.lastCollection.split('T')[0].replaceAll('-', '.')}
                                 </i>
@@ -85,3 +85,19 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
 
 })()
 
+async function collect(id){
+    let el = document.getElementById(`projectUpdate${id}`)
+
+    if(el.disabled)
+        return
+
+    el.setAttribute('data-disabled', '1')
+    el.setAttribute('disabled', 'true')
+
+    await Api.collect(id)
+
+    setTimeout( () => {
+        el.removeAttribute('data-disabled')
+        el.removeAttribute('disabled')
+    }, 1000)
+}

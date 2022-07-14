@@ -562,7 +562,7 @@ class Api {
      *
      * @param hash {String}
      * @param password {String}
-     * @returns {Promise<void>}
+     * @returns {Promise<void|Error>}
      */
     static async restoreChange(hash, password){
         let res = await fetch(Api.domain + `/restoreChange?s=${hash}&password=${password}`)
@@ -573,6 +573,17 @@ class Api {
             await Api.saveSecret()
         }
         else
+            return new Error(json['message'])
+    }
+
+    static async collect(projectId){
+        if(!Api.secret)
+            return new Error("Вы не авторизованы")
+
+        let res = await fetch(Api.domain + `/collect?c=${Api.secret}&projectId=${projectId}`)
+        let json = await res.json()
+
+        if(!json['successful'])
             return new Error(json['message'])
     }
 }
