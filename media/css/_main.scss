@@ -1,0 +1,202 @@
+.btn-green {
+  margin-right: 10px !important;
+}
+#accountWrapper {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  #account {
+    margin-top: 5%;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    #changePassword {
+      width: 300px;
+      * {
+        width: 100%;
+      }
+      button {
+        text-align: center;
+      }
+      input {
+        outline: none;
+      }
+      input:focus {
+        border-color: #04B6FB;
+      }
+      #changeSuccessful {
+        color: green;
+        text-align: center;
+      }
+      #changeError {
+        color: red;
+        text-align: center;
+      }
+    }
+    #updateSettings {
+      width: 300px;
+
+      * {
+        width: 100%;
+      }
+
+      button {
+        text-align: center;
+      }
+
+      input {
+        outline: none;
+        width: 95%;
+      }
+
+      input:focus {
+        border-color: #04B6FB;
+      }
+
+      #updateSuccessful {
+        color: green;
+        text-align: center;
+      }
+
+      #updateError {
+        color: red;
+        text-align: center;
+      }
+    }
+  }
+}
+#projectWrapper {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  #project {
+    margin-top: 2%;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    #citiesList {
+      position: absolute;
+      max-width: 300px;
+      top: 50%;
+    }
+    #createProject {
+      #siteAddress {
+        height: 32px;
+      }
+      #addProjectError {
+        color: red;
+        text-align: center;
+      }
+      #updateProjectSuccessful {
+        color: green;
+        text-align: center;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 300px;
+
+      * {
+        width: 100%;
+      }
+      #selectedCities {
+        width: 300px;
+        display: block;
+      }
+      .selected_city {
+        color: white;
+        padding: 3px;
+        margin-top: 10px;
+        background-color: #04B6FB;
+        border-radius: 5px;
+        white-space: nowrap;
+        .delete {
+          text-align: center;
+          float: right;
+          width: 20px;
+        }
+        .delete:hover {
+          border-radius: 10px;
+          background-color: rgba(120,120,120,0.2);
+          cursor: pointer;
+        }
+      }
+      .row {
+        display: flex;
+        flex-direction: row;
+      }
+
+
+      button {
+        text-align: center;
+      }
+      input {
+        outline: none;
+      }
+      input:focus {
+        border-color: #04B6FB;
+      }
+      #createError {
+        color: red;
+        text-align: center;
+      }
+      .searcher {
+        margin-left: 20px;
+        flex-direction: row;
+        input {
+          width: 10%;
+        }
+      }
+      select {
+        outline: none;
+      }
+      label.g_select_arrow {
+        margin-left: 5%;
+        width: 95%;
+      }
+      #timePicker {
+        width: 80px;
+        border-color: #BAC5C9;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 10px;
+        padding: 5px;
+      }
+      #daysPicker {
+        margin-top: 2%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .day {
+          display: inline;
+          width: 30px;
+          height: 30px;
+          padding: 5px;
+          color: #a9a9a9;
+          text-align: center;
+        }
+        .day:hover {
+          border-width: 1px;
+          border-radius: 5px;
+          background-color: #04B6FB;
+          color: white;
+        }
+        .day.selected {
+          border-width: 1px;
+          border-radius: 5px;
+          background-color: #04B6FB;
+          color: white;
+        }
+      }
+    }
+  }
+}
+.name_val {
+  a {
+    color: #BAC5C9 !important;
+    text-decoration: none !important;
+  }
+}
