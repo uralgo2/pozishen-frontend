@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1200, initial-scale=0.0">
     <title>Positions</title>
+    <link rel="stylesheet" href="media/css/_main.css">
     <link rel="stylesheet" href="media/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +26,7 @@
         </button>
     </i>
     <i id="top_panel_menu" class="menu template">
-        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"
+        <a href="#" class="g g_button g-color_theme" data-g_icon="" title="Справка"
            style="padding: 0 5px"></a>
         <i class="menu_item_bank">
             <a href="/bank.html" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
@@ -47,6 +48,9 @@
         <div class="g_popup top-popup">
             <ul class="content">
                 <bank></bank>
+                <li data-top-popup='#popup_usermenu'>
+                    <p class="g-color_blue">Закрыть</p>
+                </li>
                 <li>
                     <a href="/bank.html" data-g_icon="">
                         Расходы
@@ -95,60 +99,19 @@
         <ul id="leftmenu">
             <li class="g_title">Поиск</li>
             <li class="">
-                <a class="item" href="/requests-new.html" data-g_icon="" title="Поисковые запросы">
+                <a id="searchLink" class="item" href="#" data-g_icon="" title="Поисковые запросы">
                     <i>Поисковые запросы</i>
                 </a>
             </li>
             <li class="g-active">
-                <a class="g-active item" href="/positions.html" data-g_icon="" title="Проверка позиций">
+                <a id="positionsLink" class="g-active item" href="/positions.html" data-g_icon="" title="Проверка позиций">
                     <i>Проверка позиций</i>
                 </a>
             </li>
-            <li class="">
-                <a class="item" href="/project/snapshots/5476772/" data-g_icon="" title="Снимки выдачи">
-                    <i>Снимки выдачи</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/competitors/5476772/" data-g_icon="" title="Мои конкуренты">
-                    <i>Мои конкуренты</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/analytics/5476772/" data-g_icon="" title="Аналитика">
-                    <i>Аналитика</i>
-                </a>
-            </li>
-            <li class="g_title">Реклама</li>
-            <li class="">
-                <a class="item" href="/project/broker/5476772/direct/" data-g_icon="" title="Яндекс.Директ">
-                    <i>Яндекс.Директ</i>
-                </a>
-            </li>
-            <li class="g_title">Аудит</li>
-            <li class="">
-                <a class="item" href="/project/audit/5476772/audit/" data-g_icon="" title="Анализ сайта">
-                    <i>Анализ сайта</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/audit/5476772/indexing/" data-g_icon="" title="Индексация">
-                    <i>Индексация</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/audit/5476772/watcher/" data-g_icon="" title="Радар">
-                    <i>Радар</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/audit/5476772/sitemap/" data-g_icon="" title="Карта сайта">
-                    <i>Карта сайта</i>
-                </a>
-            </li>
+
             <li class="g_title"></li>
             <li class="">
-                <a class="item" href="/project/settings/5476772/" data-g_icon="" title="Настройки">
+                <a  class="item" href="#" id="settingsLink" data-g_icon="" title="Настройки">
                     <i>Настройки</i>
                 </a>
             </li>
@@ -165,8 +128,8 @@
                 </div>
             </li>
             <li class="external">
-                <a class="item" data-g_icon="" href="http://util-skupkatex.ru" target="_blank">
-                    <i>util-skupkatex.ru</i>
+                <a class="item" data-g_icon="" href="#" target="_blank">
+                    <i></i>
                 </a>
             </li>
         </ul>
@@ -222,7 +185,7 @@
 
                 </i>
                 <i class="no_common_view btn icon-cog" data-to-view="win_dynamics_settings-dynamics_settings"></i>
-                <a href="." class="btn icon-share" data-top-popup="#popup_dynamics_export" data-top-popup-p="3"
+                <a href="#" class="btn icon-share" data-top-popup="#popup_dynamics_export" data-top-popup-p="3"
                    data-top-popup-notch="1" title="Скачать"></a>
             </div>
 
@@ -318,87 +281,6 @@
                                 </div>
 
                                 <div class="hcol">
-                                    <div class="filter_phrases">
-                                        <a href="." class="icon arrow icon-sort-alt"
-                                           data-top-popup="#popup_select_sort" data-top-popup-p="3"
-                                           data-top-popup-notch="1"></a>
-                                        <div class="template" id="popup_select_sort">
-                                            <ul class="content">
-                                                <li><i class="a" data-field-name="name" data-direction="ASC">Имя
-                                                    А-Я</i></li>
-                                                <li><i class="a" data-field-name="name" data-direction="DESC">Имя
-                                                    Я-А</i></li>
-                                                <li><i class="a" data-field-name="volume" data-direction="DESC">Частота
-                                                    9-1</i></li>
-                                                <li><i class="a" data-field-name="volume" data-direction="ASC">Частота
-                                                    1-9</i></li>
-                                                <li><i class="a" data-field-name="target" data-direction="ASC">По
-                                                    целевой ссылке</i></li>
-                                                <li><i class="a" data-field-name="relevant_url"
-                                                       data-direction="ASC">По релевантной странице</i></li>
-                                                <li><i class="a" data-field-name="target_status"
-                                                       data-direction="DESC">Целевая = Релевантная ✓</i></li>
-                                                <li><i class="a" data-field-name="target_status"
-                                                       data-direction="ASC">Целевая = Релевантная ✗</i></li>
-                                                <li><i class="a" data-field-name="positions_delta()"
-                                                       data-direction="DESC">Изменение позиции за период</i></li>
-                                                <li><i class="a g-active">По умолчанию</i></li>
-                                            </ul>
-                                        </div>
-
-                                        <a href="." id="select_tag_opener" data-top-popup-p="3"
-                                           data-top-popup-notch="1" class="no_text top-tag-selector"
-                                           title="Фильтр по тегам" data-top-popup="#popup_for_008547608528882433"><i
-                                                data-tag_id="0" data-tag_color_id="undefined" class="g-active"
-                                                title="Все теги"></i></a>
-
-                                        <i class="icon-chain" data-top-popup="#popup_only_exists_first_date"
-                                           data-top-popup-p="3" data-top-popup-notch="1"></i>
-
-                                        <div class="template" id="popup_only_exists_first_date">
-                                            <ul class="content">
-                                                <li><i class="a" data-only_exists_first_date="1">Исключить поисковые
-                                                    запросы, добавленные за период</i></li>
-                                                <li><i class="a g-active" data-only_exists_first_date="0">Все
-                                                    добавленные поисковые запросы</i></li>
-                                            </ul>
-                                        </div>
-
-                                        <i class="seperator"></i>
-
-                                        <i class="icon-text" data-top-popup="#popup_dynamics_view"
-                                           data-top-popup-p="3" data-top-popup-notch="1"></i>
-
-                                        <div class="template" id="popup_dynamics_view">
-                                            <ul class="content">
-                                                <li><i class="a" data-value="1">Позиции</i></li>
-                                                <li><i class="a" data-value="2">Позиции и сниппеты</i></li>
-                                            </ul>
-                                        </div>
-
-                                        <i class="icon-contrast activated" data-top-popup="#popup_dynamics_painting"
-                                           data-top-popup-p="3" data-top-popup-notch="1"></i>
-
-                                        <div class="template" id="popup_dynamics_painting">
-                                            <ul class="content">
-                                                <li><i class="a" data-value="0">Топ, прогресс</i></li>
-                                                <li><i class="a" data-value="1">Рост / Падение</i></li>
-                                            </ul>
-                                        </div>
-
-                                        <i class="icon-folder_letter activated"
-                                           data-top-popup="#popup_dynamics_show_groups_names" data-top-popup-p="3"
-                                           data-top-popup-notch="1"></i>
-
-                                        <div class="template" id="popup_dynamics_show_groups_names">
-                                            <ul class="content">
-                                                <li><i class="a" data-value="0">Скрыть имена групп</i></li>
-                                                <li><i class="a" data-value="1">Показать имя слева от группы</i>
-                                                </li>
-                                                <li><i class="a" data-value="2">Показать имя над группой</i></li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                     <table>
                                         <tbody>
                                         <tr>
@@ -436,15 +318,6 @@
                                 </div>
 
                                 <div class="cols" style="width: auto;">
-                                    <div class="scrollbar hidden" style="display: block;">
-                                        <div class="l icon-caret-left btn" style="display: none;"></div>
-                                        <div class="r icon-caret-right btn" style="display: none;"></div>
-                                        <div class="inner" style="display: none;">
-                                            <div class="pin btn ui-draggable ui-draggable-handle"
-                                                 style="display: none; left: 0px;">...
-                                            </div>
-                                        </div>
-                                    </div>
                                     <table style="left: 0px;">
                                         <tr>
                                             <td class="date" colspan="1"

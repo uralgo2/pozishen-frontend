@@ -18,6 +18,7 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
     let isAuth = await Api.isAuthorized()
 
     if(isAuth) {
+        document.querySelector('#downloadClientBtn').href = 'https://pozishen.ru/api/getClient?c=' + Api.secret
         document.querySelector('#popup_usermenu').setAttribute('style', 'bottom: -200px;')
 
         document.querySelector('.g_user_balance').innerText = `${Number(Api.me.balance).toFixed(2)} ₽`
@@ -40,7 +41,7 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
                                 <i class="main">
                                     <i class="name">
                                         <i class="name_val">
-                                            <a href="/positions.html?id=${project.id}" target="_blank">${project.siteAddress}</a>
+                                            <a href="/positions.html?id=${project.id}">${project.siteAddress}</a>
                                         </i>
                                     </i>
                                     <input class="name_edit" type="text">
@@ -67,10 +68,12 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
             row_info.innerHTML =
                 `
                             <longlist_cell data-name="positions_time">
-                                <i id="projectUpdate${project.id}" onclick="collect(${project.id})" class="icon-refresh update" data-top-popup="#popup_project_update" data-top-popup-p="2" title="Запустить проверку"></i>
                                 <i class="date">
-                                    ${project.lastCollection.split('T')[0].replaceAll('-', '.')}
+                                    ${formatDate(new Date(project.lastCollection))}
                                 </i>
+                            </longlist_cell>
+                            <longlist_cell data-name="positions_time">
+                                <i id="projectUpdate${project.id}" onclick="collect(${project.id})" class="icon-refresh update" data-top-popup="#popup_project_update" data-top-popup-p="2" title="Запустить проверку"></i>
                             </longlist_cell>
                             <longlist_cell data-name="count_keywords">
                                 <a href="/requests-new.html?id=${project.id}">${project.queriesCount}</a>
@@ -84,6 +87,19 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
     else window.location.href = '/'
 
 })()
+function formatDate(date) {
+
+    let dd = date.getDate();
+    if (dd < 10) dd = '0' + dd;
+
+    let mm = date.getMonth() + 1;
+    if (mm < 10) mm = '0' + mm;
+
+    let yy = date.getFullYear() % 100;
+    if (yy < 10) yy = '0' + yy;
+
+    return dd + '.' + mm + '.' + yy;
+}
 
 async function collect(id){
     let el = document.getElementById(`projectUpdate${id}`)

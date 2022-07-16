@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1200, initial-scale=0.0">
     <title>Document</title>
+    <link rel="stylesheet" href="media/css/_main.css">
     <link rel="stylesheet" href="media/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +27,7 @@
         </button>
     </i>
     <i id="top_panel_menu" class="menu template">
-        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"
+        <a href="#" class="g g_button g-color_theme" data-g_icon="" title="Справка"
            style="padding: 0 5px"></a>
         <i class="menu_item_bank">
             <a href="/bank.html" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
@@ -48,6 +49,9 @@
         <div class="g_popup top-popup">
             <ul class="content">
                 <bank></bank>
+                <li data-top-popup='#popup_usermenu'>
+                    <p class="g-color_blue">Закрыть</p>
+                </li>
                 <li>
                     <a href="/bank.html" data-g_icon="">
                         Расходы
@@ -97,60 +101,19 @@
         <ul id="leftmenu">
             <li class="g_title">Поиск</li>
             <li class="g-active">
-                <a class="g-active item" href="/requests-new.html" data-g_icon="" title="Поисковые запросы">
+                <a id="searchLink" class="g-active item" href="#" data-g_icon="" title="Поисковые запросы">
                     <i>Поисковые запросы</i>
                 </a>
             </li>
             <li class="">
-                <a class="item" href="/positions.html" data-g_icon="" title="Проверка позиций">
+                <a id="positionsLink" class="item" href="#" data-g_icon="" title="Проверка позиций">
                     <i>Проверка позиций</i>
                 </a>
             </li>
-            <li class="">
-                <a class="item" href="/project/snapshots/5476772/" data-g_icon="" title="Снимки выдачи">
-                    <i>Снимки выдачи</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/competitors/5476772/" data-g_icon="" title="Мои конкуренты">
-                    <i>Мои конкуренты</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/analytics/5476772/" data-g_icon="" title="Аналитика">
-                    <i>Аналитика</i>
-                </a>
-            </li>
-            <li class="g_title">Реклама</li>
-            <li class="">
-                <a class="item" href="/project/broker/5476772/direct/" data-g_icon="" title="Яндекс.Директ">
-                    <i>Яндекс.Директ</i>
-                </a>
-            </li>
-            <li class="g_title">Аудит</li>
-            <li class="">
-                <a class="item" href="/project/audit/5476772/audit/" data-g_icon="" title="Анализ сайта">
-                    <i>Анализ сайта</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/audit/5476772/indexing/" data-g_icon="" title="Индексация">
-                    <i>Индексация</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/audit/5476772/watcher/" data-g_icon="" title="Радар">
-                    <i>Радар</i>
-                </a>
-            </li>
-            <li class="">
-                <a class="item" href="/project/audit/5476772/sitemap/" data-g_icon="" title="Карта сайта">
-                    <i>Карта сайта</i>
-                </a>
-            </li>
+
             <li class="g_title"></li>
             <li class="">
-                <a class="item" href="/project/settings/5476772/" data-g_icon="" title="Настройки">
+                <a class="item" href="#" id="settingsLink" data-g_icon="" title="Настройки">
                     <i>Настройки</i>
                 </a>
             </li>
@@ -217,13 +180,19 @@
                                     <i class="select_fields">
                                         <i class="icon-three-stripes-full"></i>
                                     </i>
-                                    <i class="cb_sel">
-                                        <input type="checkbox" class="g" name="select_all" value=""></i>
                                     <i class="name"><i class="filter-on on"></i>
                                         Группы
                                         <i class="sorter"></i>
-                                        <i class="to_search icon-search"></i>
+                                        <i id="groupSearch" class="to_search icon-search"></i>
                                         <i class="to_add icon-plus-full" data-table-type="groups"></i>
+                                        <span id="searchGroups" class="search_phrase_open" style="margin-left: 0 !important;" hidden="">
+                                            <label class="g g_input g_input-search_phrase_string g_input_with_cleaner" style="max-width: 50%">
+                                                <input id="groupSearchInput" style="display: block;outline: none;height: 25%;width: 100%;border-radius: 1px;border-color: blue;border-width: 1px;margin: 0;color: blue" type="text" class="g" autocomplete="off" name="search_phrase_string" placeholder=" ">
+                                                <i data-action="g_input_clear" data-g_icon="">
+
+                                                </i>
+                                            </label>
+                                        </span>
                                         <i class="resizer"></i>
                                     </i>
                                     <i class="count_keywords">
@@ -270,10 +239,6 @@
                                         <i class="name">Тестовое название</i>
                                         <i class="close icon-remove"></i>
                                     </div>
-                                    <div class="tab  tab tab_for_folder_-1 tab_for_group_-1" title="">
-                                        <i class="name">Тестовое название</i>
-                                        <i class="close icon-remove"></i>
-                                    </div>
                                     <div class="tab  tab tab_for_folder_-1 tab_for_group_-1 is_search_tab" title="">
                                         <i class="name"></i>
                                         <i class="close icon-remove"></i>
@@ -286,14 +251,20 @@
                                     </i>
                                     <i class="tags"></i>
                                     <i class="target"></i>
-                                    <i class="cb_sel">
-                                        <input type="checkbox" class="g" name="select_all" value=""></i>
                                     <i class="name">Запросы<i class="sorter"></i>
-                                        <i class="to_search icon-search"></i>
+                                        <i id="querySearch" class="to_search icon-search"></i>
                                         <i class="to_add icon-plus-full" data-table-type="items"></i>
-                                        <i class="to_import icon-cloud-in"
+                                        <i onclick="openQueriesPopup()" id="importQueries" class="to_import icon-cloud-in"
                                            data-to-view="win_master_positions-keywords:5476772"></i>
                                         <i class="resizer"></i>
+                                        <span id="searchQueries" class="search_phrase_open" style="margin-left: 0 !important;" hidden="">
+                                            <label class="g g_input g_input-search_phrase_string g_input_with_cleaner" style="max-width: 50%">
+                                                <input id="querySearchInput" style="display: block;outline: none;height: 25%;width: 100%;border-radius: 1px;border-color: blue;border-width: 1px;margin: 0;color: blue" type="text" class="g" autocomplete="off" name="search_phrase_string" placeholder=" ">
+                                                <i data-action="g_input_clear" data-g_icon="">
+
+                                                </i>
+                                            </label>
+                                        </span>
                                     </i>
                                     <i class="path"></i>
                                     <i class="del">
@@ -308,7 +279,15 @@
         </div>
     </div>
 </div>
-
+<div hidden id="addQueriesListPopup">
+    <label>
+        <textarea onsubmit="addQueriesPopup()" class="g" id="addQueriesListText" placeholder="Введите запросы"></textarea>
+        <div>
+            <button onclick="closeQueriesPopup()" class="btn btn-cyan" id="closeQueriesList">Закрыть</button>
+            <button onclick="addQueriesPopup()" class="btn btn-cyan" id="addQueriesList">Добавить</button>
+        </div>
+    </label>
+</div>
 <template id="item_row">
     <i class="tags top-tag-setter fixed_cell" style="transform: translateX(0px);">
         <i class="g-active" data-tag_id="1" data-tag_color_id="1"

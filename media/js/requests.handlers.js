@@ -39,11 +39,162 @@
         projectsPopup.appendChild(li)
     })
 })()
+const groupSearchOpen = document.querySelector('#searchGroups')
+const groupSearchInput = document.querySelector('#groupSearchInput')
+
+document.querySelector('#groupSearch').onclick
+    = (e) => {
+    groupSearchOpen.hidden = false
+    groupSearchInput.focus()
+}
+
+groupSearchInput.oninput
+    = async (e) => await selectGroupSearch(e.target.value)
+
+groupSearchInput.onblur
+    = (e) => groupSearchOpen.hidden = true
+
+const querySearchOpen = document.querySelector('#searchQueries')
+const querySearchInput = document.querySelector('#querySearchInput')
+
+document.querySelector('#querySearch').onclick
+    = (e) => {
+    querySearchOpen.hidden = false
+    querySearchInput.focus()
+}
+
+querySearchInput.oninput
+    = async (e) => await selectQuerySearch(e.target.value)
+
+querySearchInput.onblur
+    = (e) => querySearchOpen.hidden = true
+
+
 /**
  * @type {HTMLElement[]}
  */
 let groupElements = []
 
+const queriesPopup = document.querySelector('#addQueriesListPopup')
+const queriesText = document.querySelector('#addQueriesListText')
+
+const closeQueriesPopup = () => queriesPopup.hidden = true
+const openQueriesPopup = () => queriesPopup.hidden = false
+const addQueriesPopup = async (e) => {
+    let v = queriesText.value
+
+    await importQueries(v)
+
+    closeQueriesPopup()
+}
+async function importQueries(raw){
+    let queries = raw.split(/\r?\n/)
+    let project = Api.selectedProject
+    let group = Api.selectedGroup
+    if(!project) return
+
+    let queriesList = document.querySelector("#phrases_keywords > div:nth-child(1) > longlist:nth-child(1)")
+
+    let count = 0
+    for(let query of queries){
+        if(query === '') continue
+
+        let res = await Api.addQuery(project.id, group.id,query)
+        let row = document.createElement('longlist_row')
+        row.classList.add('id-20051234', 'row')
+        row.innerHTML = `
+    <i class="tags top-tag-setter fixed_cell" style="transform: translateX(0px);">
+                                            <i class="g-active" data-tag_id="1" data-tag_color_id="1"
+                                               title="Тег по умолчанию"></i>
+                                        </i>
+                                        <i class="name renamer fixed_cell" title=""
+                                           style="transform: translateX(0px);">
+                                            <i class="v">${query}</i>
+                                        </i>
+                                        <i class="path fixed_cell" style="transform: translateX(0px);">
+                                            <i>--</i>
+                                        </i>
+                                        <i class="del icon-trash" title="Удалить"></i>
+    `
+        queriesList.appendChild(row)
+        row.id = `query${res.id}`
+        row.querySelector('.del').onclick = async (e) => await deleteQuery(res.id,group.id, project.id)
+        ++count
+    }
+    document.getElementById(`queriesCountGroup${group.id}`).innerText = `${group.queriesCount + count}`
+}
+async function selectGroupSearch(search){
+    let groups = groupElements
+
+    const has = (t, s) => {
+        let h = false
+        t.split(' ').map((v) => {
+            if(s.indexOf(v) !== -1)
+                h = true
+        })
+        return h
+    }
+
+    let id = 0;
+    for(let i = 0; i < groups.length; i++){
+        let group = groups[i]
+
+        let h = has(search, group.querySelector('i.name.renamer > i.v').innerText)
+        if(h && id == 0)
+            id =  Number(group.getAttribute('data-id'))
+        if(!h)
+            group.style.display = 'none'
+        else
+            group.style.removeProperty('display')
+        group.hidden = !h
+
+
+    }
+
+    let s = groupElements.find((v) => v.id.replace('group', '') == Api.selectedGroup.id)
+
+    if(s && s.hidden){
+
+        if(id){
+            Api.selectedGroup = undefined
+            await selectGroup(Api.groups.find((v) => v.id == id))
+        }
+
+        else
+            document.querySelector("#phrases_keywords > div:nth-child(1) > longlist:nth-child(1)").innerHTML = ''
+    }
+}
+
+async function selectQuerySearch(search){
+    let queries = document.querySelector('#phrases_keywords > div.body.top-scroll.top-longlist > longlist').children
+
+    const has = (t, s) => {
+        let h = false
+        t.split(' ').map((v) => {
+            if(s.indexOf(v) !== -1)
+                h = true
+        })
+        return h
+    }
+
+    let count = 0;
+    for(let i = 0; i < queries.length; i++){
+        let query = queries[i]
+
+        let h = has(search, query.querySelector('i.name.renamer > i.v').innerText)
+
+        if(!h)
+            query.style.display = 'none'
+        else
+            query.style.removeProperty('display')
+
+        query.hidden = !h
+        if(h)
+            ++count
+    }
+
+    document.getElementById(`queriesCountGroup${Api.selectedGroup.id}`).innerText = `${count}`
+}
 document.querySelector('i.to_add:nth-child(4)').onclick = async () => {
     let project = Api.selectedProject
 
@@ -59,12 +210,10 @@ document.querySelector('i.to_add:nth-child(4)').onclick = async () => {
     row.setAttribute("data-id", '-1')
     row.setAttribute('data-n', '0')
     row.innerHTML = `
-             <i class='cb_sel'>
-                    <input type="checkbox" class="g" name="selected" value="23265330"></i>
                     <i class="name renamer" title="Новая группа">
-                    <i class="on on-1" title="Включить / Выключить группу"></i>
-                    <i class="v"></i>
-                </i>
+                        <i class="on on-1" title="Включить / Выключить группу"></i>
+                        <input class="v" placeholder="Введите имя группы"/>
+                    </i>
                 <i  id="queriesCountGroup" class="count_keywords">0</i>
                 <i class="del icon-trash" title="Удалить"></i>
         `
@@ -73,10 +222,7 @@ document.querySelector('i.to_add:nth-child(4)').onclick = async () => {
 
     groupsList.appendChild(row)
     groupElements.push(row)
-    groupElements.map(e =>
-        e.classList.remove('active')
-    )
-    row.classList.add('active', 'row', 'id-23265330')
+    row.classList.add('row', 'id-23265330')
 
     let name = row.querySelector('.v')
     name.setAttribute("contenteditable", true)
@@ -85,24 +231,26 @@ document.querySelector('i.to_add:nth-child(4)').onclick = async () => {
     name.focus()
 
     name.onblur = async (e) => {
-        if(!!e.target.innerText){
-            name.title = e.target.innerText
-            let group = await Api.addGroup(project.id, e.target.innerText)
+        if(!!e.target.value){
+            name.title = e.target.value
+            let group = await Api.addGroup(project.id, e.target.value)
 
             if(group instanceof Error)
                 return name.focus()
 
             row.id = `group${group.id}`
-            name.setAttribute("contenteditable", false)
-            name.classList.remove('state-rename')
             row.setAttribute("data-id", group.id)
             row.querySelector('#queriesCountGroup').id = `queriesCountGroup${group.id}`
             row.querySelector('.del').onclick = async (e) => await deleteGroup(group.id, project.id)
             let listener = async (e) => {
                 await selectGroup(group)
             }
-            row.querySelector('.name').onclick =
+            let n = row.querySelector('.name')
+                n.onclick =
                 row.querySelector('.count_keywords').onclick = listener
+            name.remove()
+            let v = e.target.value
+            n.innerHTML += `<i class="v">${v}</i>`
             await selectGroup(group)
         }
         else row.remove()
@@ -110,9 +258,6 @@ document.querySelector('i.to_add:nth-child(4)').onclick = async () => {
     }
 
     row.querySelector('.del').onclick = (e) => row.remove()
-
-    let queriesList = document.querySelector("#phrases_keywords > div:nth-child(1) > longlist:nth-child(1)")
-    queriesList.innerHTML = ''
 
 }
 document.querySelector('i.to_add:nth-child(3)').onclick = async () => {
@@ -135,18 +280,9 @@ document.querySelector('i.to_add:nth-child(3)').onclick = async () => {
                                             <i class="g-active" data-tag_id="1" data-tag_color_id="1"
                                                title="Тег по умолчанию"></i>
                                         </i>
-                                        <i class="target setted fixed_cell" data-top-popup="#popup_keywords_target"
-                                           data-top-popup-p="1" data-top-popup-notch="1" data-top-popup-pos-by="fixed"
-                                           title="https://util-skupkatex.ru/skupka/refrigerators/"
-                                           style="transform: translateX(0px);">
-                                            <i class="icon-link"></i>
-                                        </i>
-                                        <i class="cb_sel fixed_cell" style="transform: translateX(0px);">
-                                            <input type="checkbox" class="g" name="selected" value="20051234">
-                                        </i>
                                         <i class="name renamer fixed_cell" title=""
                                            style="transform: translateX(0px);">
-                                            <i class="v"></i>
+                                            <input class="v" placeholder="Введите текст запроса"/>
                                         </i>
                                         <i class="path fixed_cell" style="transform: translateX(0px);">
                                             <i>--</i>
@@ -164,18 +300,20 @@ document.querySelector('i.to_add:nth-child(3)').onclick = async () => {
     name.focus()
 
     name.onblur = async (e) => {
-        if(!!e.target.innerText){
-            name.title = e.target.innerText
-            let query = await Api.addQuery(project.id, group.id, e.target.innerText)
+        if(!!e.target.value){
+            name.title = e.target.value
+            let query = await Api.addQuery(project.id, group.id, e.target.value)
 
             if(group instanceof Error)
                 return name.focus()
 
             row.id = `query${query.id}`
-            name.setAttribute("contenteditable", false)
-            name.classList.remove('state-rename')
             row.setAttribute("data-id", query.id)
             row.querySelector('.del').onclick = async (e) => await deleteQuery(query.id,group.id, project.id)
+            let n = row.querySelector('.name')
+            name.remove()
+            let v = e.target.value
+            n.innerHTML += `<i class="v">${v}</i>`
         }
         else {
             document.getElementById(`queriesCountGroup${group.id}`).innerText = `${--group.queriesCount}`
@@ -194,6 +332,10 @@ document.querySelector('i.to_add:nth-child(3)').onclick = async () => {
 async function selectProject(project){
 
     document.querySelector(".g_ellipsis").innerText = project.siteAddress
+    document.title = `${project.siteAddress} (Семантическое ядро) #${project.id}`
+    document.querySelector('#settingsLink').href = `/edit-project.html?id=${project.id}`
+    document.querySelector('#searchLink').href = `/requests-new.html?id=${project.id}`
+    document.querySelector('#positionsLink').href = `/positions.html?id=${project.id}`
     let l = document.querySelector('.external > a:nth-child(1)')
     l.href = 'https://' + project.siteAddress
     l.innerHTML = `<i>${project.siteAddress}</i>`
@@ -219,9 +361,6 @@ async function selectProject(project){
 
         Api.getQueriesCountForGroup(project.id, group.id).then(count => {
             row.innerHTML = `
-             <i class="cb_sel">
-                    <input type="checkbox" class="g" name="selected" value="23265330">
-                    </i>
                     <i class="name renamer" title="${group.groupName}">
                     <i class="on on-1" title="Включить / Выключить группу"></i>
                     <i class="v">${group.groupName}</i>
@@ -291,15 +430,6 @@ async function selectGroup(group){
                                         <i class="tags top-tag-setter fixed_cell" style="transform: translateX(0px);">
                                             <i class="g-active" data-tag_id="1" data-tag_color_id="1"
                                                title="Тег по умолчанию"></i>
-                                        </i>
-                                        <i class="target setted fixed_cell" data-top-popup="#popup_keywords_target"
-                                           data-top-popup-p="1" data-top-popup-notch="1" data-top-popup-pos-by="fixed"
-                                           title="https://util-skupkatex.ru/skupka/refrigerators/"
-                                           style="transform: translateX(0px);">
-                                            <i class="icon-link"></i>
-                                        </i>
-                                        <i class="cb_sel fixed_cell" style="transform: translateX(0px);">
-                                            <input type="checkbox" class="g" name="selected" value="20051234">
                                         </i>
                                         <i class="name renamer fixed_cell" title="${query.queryText}"
                                            style="transform: translateX(0px);">

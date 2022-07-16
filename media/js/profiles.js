@@ -14,6 +14,8 @@ popUpOpenBlocks.forEach((block) => {
         }
         else {
             profileBlock.classList.add("show")
+
+
             mainHTML.setAttribute("data-popup-open", "true")
             if (width > 900) {
                 profileBlock.style.left = `${profile.getBoundingClientRect().x - 180}px`
@@ -23,9 +25,36 @@ popUpOpenBlocks.forEach((block) => {
                     profileBlock.style.top = "45px"
                 }
             }
+
+            setTimeout(() => document.onclick = listenerDocument, 200)
         }
     })
 })
+
+
+function listenerDocument(e) {
+    /**
+     * @type {HTMLElement}
+     */
+    let el = e.target
+
+    console.log(el)
+    if(!hasInChildren(el, profileBlock)) {
+        profileBlock.classList.remove("show")
+        mainHTML.setAttribute("data-popup-open", "false")
+        document.onclick = null
+    }
+}
+
+function hasInChildren(el, e){
+    if(el == e) return true
+    let t = false
+    for(let child of e.children){
+        if(child == el) return true
+        else if((t = hasInChildren(el, child))) return t
+    }
+    return false
+}
 
 closeBlock.addEventListener('click', () => profileBlock.classList.remove("show"))
 

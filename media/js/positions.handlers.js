@@ -99,6 +99,10 @@ async function showDates(){
 }
 async function selectProject(project){
     document.querySelector(".g_ellipsis").innerText = project.siteAddress
+    document.title = `${project.siteAddress} (Динамика запросов проекта) #${project.id}`
+    document.querySelector('#settingsLink').href = `/edit-project.html?id=${project.id}`
+    document.querySelector('#searchLink').href = `/requests-new.html?id=${project.id}`
+    document.querySelector('#positionsLink').href = `/positions.html?id=${project.id}`
     let l = document.querySelector('.external > a:nth-child(1)')
     l.href = 'https://' + project.siteAddress
     l.innerHTML = `<i>${project.siteAddress}</i>`
@@ -280,13 +284,25 @@ async function showSearch(){
     }
     document.querySelector('.total').innerText = `(${count})`
 }
+function formatDate(date, v = '.') {
+
+    let dd = date.getDate();
+    if (dd < 10) dd = '0' + dd;
+
+    let mm = date.getMonth() + 1;
+    if (mm < 10) mm = '0' + mm;
+
+    let yyyy = date.getFullYear()
+
+    return dd + v + mm + v + yyyy;
+}
 async function showData() {
 
     let queriesTable = document.querySelector('div.hcol:nth-child(1) > table:nth-child(1) tbody')
     queriesTable.innerHTML = ''
     let resultsTable = document.querySelector('div.cols:nth-child(2) > table:nth-child(1) tbody')
     resultsTable.innerHTML = ''
-    let dateTable = document.querySelector('div.cols:nth-child(3) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1)')
+    let dateTable = document.querySelector('div.cols:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1)')
     dateTable.innerHTML = ''
 
     let queriesCount = data.groupId === 0
@@ -309,16 +325,17 @@ async function showData() {
     let percentDates = []
     for (let i = 0; i < dates.length; i++) {
         let date = dates[i].toISOString()
-        let fdate = date.split('T')[0]
+        let fdate = formatDate(dates[i])
+        let asid = formatDate(dates[i], '-')
         percentDates.push([0, 0])
         dateTable.innerHTML += `
-            <td class="date" colspan="1" data-qualifiers-string="${date}"><i title="${fdate}">
+            <td class="date" colspan="1" data-qualifiers-string="${date}"><i title="${asid}">
                                                 <i class="value" title="Отсортировать по позициям">${fdate}</i><i
                                                     class="stat"><i data-top-popup="#popup_change_top"
                                                                     data-top-popup-pos-by="fixed"
                                                                     data-top-popup-p="3" data-top-popup-notch="1"
                                                                     title="Процент запросов в топ10 (для выбранной группы)"><span
-                                                    class="percent"><i class="icon-percent"></i><sup id="percentDate${fdate}">0</sup><span
+                                                    class="percent"><i class="icon-percent"></i><sup id="percentDate${asid}">0</sup><span
                                                     class="top"></span></span></i></i></i></td>
         `
 
@@ -332,7 +349,7 @@ async function showData() {
             let query = queries[j]
 
             queriesTable.innerHTML += `
-                 <tr id="query${query.id}" class="phrase_id20051234 hover n0" data-n="0" data-keyword_id="20051234">
+                 <tr id="query${query.id}" class="phrase_tr phrase_id20051234 hover n0" data-n="0" data-keyword_id="20051234">
                                             <td class="cb"><i id="indicateQuery${query.id}"
                                                     class="target_status" data-status="1"
                                                     data-top-popup="#popup_keywords_target"
@@ -409,12 +426,10 @@ async function showData() {
 
                     } else {
                         p100plus++
-                        if(last)
-                            el.classList.add('move-10')
                     }
 
                     if(last) {
-                        let n = last.place - position.place
+                        let n = last.place === 0 ? position.place : last.place - position.place
                         el.classList.add(`move${Math.min(Math.max(n, -10), 10)}`)
                         if(n !== 0) {
                             let diff = document.createElement('i')
@@ -512,6 +527,6 @@ async function showData() {
         let date = dates[i]
 
         if(percent[1] !== 0)
-        dateTable.querySelector(`#percentDate${date.toISOString().split('T')[0]}`).innerText = (percent[0] / percent[1] * 100).toFixed(0)
+        dateTable.querySelector(`#percentDate${formatDate(date, '-')}`).innerText = (percent[0] / percent[1] * 100).toFixed(0)
     }
 }

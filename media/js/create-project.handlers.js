@@ -20,10 +20,10 @@ const openCitiesList = () => citiesList.hidden = false
 
 let data = {
     cities: new Set(),
-    days: new Set(),
+    days: new Set(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]),
     searchers: new Set(),
     siteAddress: '',
-    parsingTime: '',
+    parsingTime: '12:00',
     range: '100'
 }
 
@@ -52,6 +52,7 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
 
         document.querySelector('.logins-el > i:nth-child(1) > i:nth-child(2)').innerText = Api.me.email
 
+        document.querySelector('#timePicker').value = "12:00"
         let cityInput = document.querySelector('#cityInput')
         cityInput.onblur = async(e) => setTimeout(closeCitiesList, 200)
         cityInput.onfocus = async (e) => {
@@ -98,6 +99,7 @@ async function showCities (search)
     else closeCitiesList()
     let cityInput = document.querySelector('#cityInput')
     cityInput.onkeydown = async (e) => {
+        e.preventDefault()
         if(e.keyCode === 13){
             if(cities.length){
                 cityInput.value = ''

@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Projects</title>
+    <title>Ваши проекты</title>
+    <link rel="stylesheet" href="media/css/_main.css">
     <link rel="stylesheet" href="media/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +29,7 @@
         </button>
     </i>
     <i id="top_panel_menu" class="menu template">
-        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"
+        <a href="#" class="g g_button g-color_theme" data-g_icon="" title="Справка"
            style="padding: 0 5px"></a>
         <i class="menu_item_bank">
             <a href="/bank.html" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
@@ -50,6 +51,9 @@
         <div class="g_popup top-popup">
             <ul class="content">
                 <bank></bank>
+                <li data-top-popup='#popup_usermenu'>
+                    <p class="g-color_blue">Закрыть</p>
+                </li>
                 <li>
                     <a href="/bank.html" data-g_icon="">
                         Расходы
@@ -93,7 +97,6 @@
     <div id="projects">
         <div id="table_projects" class="top_table">
             <i class="header">
-                <input type="checkbox" class="g" name="projects_check_all" value=""> <i class="total_selected">Выбрано: <i>0</i></i>
 
                 <i class="group_actions disabled">
                     <i data-g_icon="" class="icon-refresh" data-top-popup="#popup_project_update" data-top-popup-p="3" data-top-popup-notch="1" title="Запустить проверку позиций"></i>
@@ -103,22 +106,14 @@
                 </i>
 
                 <label class="g g_input g_input-project_search g_input_with_cleaner" data-g_icon=""><input type="text" class="g g_autochange" autocomplete="off" name="project_search" title="Название, URL, ID" placeholder="Название, URL, ID"><i data-action="g_input_clear" data-g_icon=""></i></label>
-                <i class="filters">
-                    <i data-g_icon="" data-top-popup="#popup_project_types" data-top-popup-p="3" data-top-popup-notch="1" title="Категория проекта"></i>
 
-                    <i id="select_tag_opener" data-top-popup-p="3" data-top-popup-notch="1" class="top-tag-selector">
-                        <i data-tag_id="0" data-tag_color_id="undefined" class="g-active" title="Все теги"></i>
-                    </i>
-
-                    <i data-g_icon="" data-top-popup="#popup_project_folders" data-top-popup-p="3" data-top-popup-notch="1" title="Папка с проектами">
-                        <i class="folder_name g-only_pc">Все папки</i>
-                    </i>
-                </i>
 
                 <i class="selected_project_type g-only_pc">Выбранная категория: <i class="val"></i></i>
 
                 <i class="delimiter"></i>
-
+                <a target="_blank" href="#" id="downloadClientBtn" class="btn btn-mobile add_project_opener btn-green" data-to-view="win_master_create-name:0">
+                    <i>Скачать программу</i>
+                </a>
                 <a href="/create-project.html" class="btn btn-blue btn-mobile add_project_opener" data-to-view="win_master_create-name:0">
                     <i>Создать проект</i>
                     <i class="icon-plus-full"></i>
@@ -145,6 +140,7 @@
                         Название
                     </longlist_cell>
                     <longlist_cell data-name="positions_time" class="top_sorter_item">Дата</longlist_cell>
+                    <longlist_cell data-name="positions_time" class="top_sorter_item">Запустить сейчас</longlist_cell>
                     <longlist_cell data-name="count_keywords" class="top_sorter_item">Запросов</longlist_cell>
                 </i>
                 <i class="body top-longlist" style="--top-longlist-row-height: 95px;">

@@ -111,6 +111,7 @@ async function showCities (search)
     if(cities.length) openCitiesList()
     let cityInput = document.querySelector('#cityInput')
     cityInput.onkeydown = async (e) => {
+        e.preventDefault()
         if(e.keyCode === 13){
             if(cities.length){
                 cityInput.value = ''
@@ -198,7 +199,7 @@ document.querySelector('#createProject').onsubmit = async (e) => {
  */
 async function selectProject(project){
     let cities = await Api.getCities(project.id)
-
+    document.title = `${project.siteAddress} (Настройки проекта) #${project.id}`
     data.cities = new Set(cities.map(obj => obj.cityName))
 
 

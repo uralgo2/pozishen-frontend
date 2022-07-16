@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Создание проекта</title>
+    <link rel="stylesheet" href="media/css/_main.css">
     <link rel="stylesheet" href="media/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +28,7 @@
         </button>
     </i>
     <i id="top_panel_menu" class="menu template">
-        <a href="/ru/support/" class="g g_button g-color_theme" data-g_icon="" title="Справка"
+        <a href="#" class="g g_button g-color_theme" data-g_icon="" title="Справка"
            style="padding: 0 5px"></a>
         <i class="menu_item_bank">
             <a href="/bank.html" class="g g_button g-color_theme g-style_soft g_user_balance" data-g_icon="">
@@ -49,6 +50,9 @@
         <div class="g_popup top-popup">
             <ul class="content">
                 <bank></bank>
+                <li data-top-popup='#popup_usermenu'>
+                    <p class="g-color_blue">Закрыть</p>
+                </li>
                 <li>
                     <a href="/bank.html" data-g_icon="">
                         Расходы
@@ -126,28 +130,33 @@
                 <label>
                     <input type="text" class="g" autocomplete="off" name="city_name"
                            title="Введите название города" placeholder="Введите название города" id="cityInput">
+                    <div hidden id="citiesList" class="g_popup top-popup">
+                        <ul class="content" id="citiesListContent">
+                        </ul>
+                    </div>
                 </label>
-                <div hidden id="citiesList" class="g_popup top-popup">
-                    <ul class="content" id="citiesListContent">
-                    </ul>
-                </div>
+
                 <br>
                 <div id="selectedCities">
                 </div>
                 <br>
                 <div id="datetimePicker">
+                    <i>Когда собирать позиции по Мск</i>
+                    <br><br>
                     <label>
                         <input class="g" id="timePicker" type="time">
                     </label>
+                    <br><br>
+                    <i id="chooseDayLabel">Выберите дни недели</i>
                     <br>
                     <div id="daysPicker">
-                        <div id="Monday" onclick="toggleDay('Monday')" class="day">Пн</div>
-                        <div id="Tuesday" onclick="toggleDay('Tuesday')" class="day">Вт</div>
-                        <div id="Wednesday" onclick="toggleDay('Wednesday')" class="day">Ср</div>
-                        <div id="Thursday" onclick="toggleDay('Thursday')" class="day">Чт</div>
-                        <div id="Friday" onclick="toggleDay('Friday')" class="day">Пт</div>
-                        <div id="Saturday" onclick="toggleDay('Saturday')" class="day">Сб</div>
-                        <div id="Sunday" onclick="toggleDay('Sunday')" class="day">Вс</div>
+                        <div id="Monday" onclick="toggleDay('Monday')" class="day selected">Пн</div>
+                        <div id="Tuesday" onclick="toggleDay('Tuesday')" class="day selected">Вт</div>
+                        <div id="Wednesday" onclick="toggleDay('Wednesday')" class="day selected">Ср</div>
+                        <div id="Thursday" onclick="toggleDay('Thursday')" class="day selected">Чт</div>
+                        <div id="Friday" onclick="toggleDay('Friday')" class="day selected">Пт</div>
+                        <div id="Saturday" onclick="toggleDay('Saturday')" class="day selected">Сб</div>
+                        <div id="Sunday" onclick="toggleDay('Sunday')" class="day selected">Вс</div>
                     </div>
                 </div>
                 <br>
