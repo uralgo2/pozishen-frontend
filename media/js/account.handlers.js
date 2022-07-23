@@ -27,8 +27,6 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
             .replace('T', ' ')
             .substring(0, 16)
 
-        let cll = document.querySelector('input[name="change_load_limit"]')
-            cll.placeholder = cll.value = Api.me.loadLimit
         let cmr = document.querySelector('input[name="change_max_resource_limit"]')
             cmr.placeholder = cmr.value = Api.me.maxResourceLimit
 
@@ -89,16 +87,20 @@ document.querySelector('#changePassword').onsubmit = async (e) => {
 document.querySelector('#updateSettings').onsubmit = async (e) => {
     e.preventDefault()
 
-    let loadLimit = document.querySelector('input[name="change_load_limit"]').value
     let maxResource = document.querySelector('input[name="change_max_resource_limit"]').value
 
 
-    let res = await Api.updateSettings(loadLimit, maxResource)
+    if(isNaN(Number.parseInt(maxResource))) {
+        document.querySelector('#updateError').innerText = 'Невалидное или пустое поле'
+        return document.querySelector('#updateSuccessful').innerText = ''
+    }
 
-    if(res instanceof Error)
-        return (document.querySelector('#updateError').innerText = res.message)
-            || (document.querySelector('#updateSuccessful').innerText = '')
+    let res = await Api.updateSettings(maxResource)
 
+    if(res instanceof Error) {
+        document.querySelector('#updateError').innerText = res.message
+        return document.querySelector('#updateSuccessful').innerText = ''
+    }
     else
     {
         document.querySelector('#updateError').innerText = ''

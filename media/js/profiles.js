@@ -38,7 +38,6 @@ function listenerDocument(e) {
      */
     let el = e.target
 
-    console.log(el)
     if(!hasInChildren(el, profileBlock)) {
         profileBlock.classList.remove("show")
         mainHTML.setAttribute("data-popup-open", "false")

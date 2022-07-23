@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Позишен - сервис поисковой аналитики!</title>
+    <title>Главная</title>
     <link rel="stylesheet" href="media/css/_main.css">
     <link rel="stylesheet" href="media/css/main.css">
 
@@ -25,8 +25,11 @@
         </a>
     </i>
     <i style="display: none" id="select_project_button" class="loggedButtons">
-        <a href="/projects.html" class="g loggedButtons g_button g-color_theme g-style_soft" data-g_icon=""
-           title="К списку проектов"></a>
+        <a href="/projects.html" class="g g_button g-color_theme g-style_soft" data-g_icon="" title="К списку проектов"></a>
+        <button class="g g_button g-color_theme g-style_soft" data-action="select-project" data-g_icon_2=""
+                title="Поиск проектов (s)">
+            <i class="g_ellipsis">Проекты</i>
+        </button>
     </i>
     <i style="display: none" id="top_panel_menu" class="menu template unloggedButtons">
         <a href="/updates/" class="g g_button g-color_theme" title="Обновления" data-g_icon=""></a>
@@ -90,7 +93,39 @@
         <img src="media/images/avatar.jpg" alt="avatar">
     </i>
 </header>
+
+<div id="popup_select_project" class="top-popup-wrapper p-from-top top-popup-wrapper-shown p3"
+     style=" position: sticky;
+  margin-left: 25.2%;
+  top: 40px;--top-popup-height:32px; --top-popup-right-bounding:328px; --top-popup-bottom-bounding:40px; --top-popup-top:8px; --top-popup-left:96px;"
+     tabindex="0">
+
+    <div class="g_popup top-popup" style="">
+        <ul class="content">
+            <li class="g_title" data-type="scheduled">Проверка по расписанию</li>
+
+        </ul>
+    </div>
+</div>
 <div class="body-content"></div>
+<div id="toolbar">
+    <a href="projects.html" class="projects" data-top-popup="#popup_select_project" data-action="select-project" data-top-popup-p="3" data-top-popup-front="#body">
+        <i class="icon-file"></i>
+        <i>Проекты</i>
+    </a>
+
+
+    <a href="/bank.html" class="bank">
+        <i class="icon-piggybank"></i>
+        <i>Банк</i>
+    </a>
+
+    <a class="account" data-top-popup="#popup_usermenu" data-top-popup-p="3" data-top-popup-front="#body">
+        <img src="media/images/avatar.jpg" alt="avatar">
+        <i>Аккаунт</i>
+    </a>
+</div>
+
 <footer class="the_footer">
     <div class="wrapper">
         <div class="the_footer_card the_footer_card_tv"></div>

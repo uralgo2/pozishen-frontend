@@ -37,7 +37,15 @@
  *     queriesCount: Number
  * }}
  */
-
+/**
+ * @name Subgroup
+ * @type {{
+ *     id: Number,
+ *     groupId: Number,
+ *     subgroupName: String,
+ *     queriesCount: Number
+ * }}
+ */
 /**
  * @name City
  * @type {{
@@ -61,6 +69,7 @@
  * @type {{
  *     id: Number,
  *     queryId: Number,
+ *     subgroupId: Number,
  *     place: Number,
  *     lastCollection: Date,
  *     queryText: String,

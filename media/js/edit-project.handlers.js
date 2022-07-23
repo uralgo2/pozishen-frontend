@@ -105,13 +105,12 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
 
 async function showCities (search)
 {
+
     let list = document.querySelector('#citiesListContent')
-    list.innerHTML = ''
     let cities = (await Api.searchCities(search)).filter((city) => !data.cities.has(city.name))
     if(cities.length) openCitiesList()
     let cityInput = document.querySelector('#cityInput')
     cityInput.onkeydown = async (e) => {
-        e.preventDefault()
         if(e.keyCode === 13){
             if(cities.length){
                 cityInput.value = ''
@@ -120,6 +119,7 @@ async function showCities (search)
             }
         }
     }
+    list.innerHTML = ''
     for(let i = 0; i < cities.length; i++){
         let city = cities[i]
         let row = document.createElement('li')
@@ -139,18 +139,21 @@ async function showCities (search)
 
         list.append(row)
     }
+
+    if(!list.children.length)
+        closeCitiesList()
 }
 async function addCity(city){
 
     selectedCitiesList.innerHTML +=
         `
-            <div id="${city}" class="selected_city">${city}&nbsp;<i class="delete" onclick="removeCity('${city}')" title="Удалить">×</i></div>
+            <div data-value="${city}" class="selected_city">${city}&nbsp;<i class="delete" onclick="removeCity('${city}')" title="Удалить">×</i></div>
         `
     data.cities.add(city)
 
 }
 async function removeCity(city){
-    document.querySelector(`#${city}`).remove()
+    document.querySelector(`.selected_city[data-value='${city}']`).remove()
     data.cities.delete(city)
 }
 
@@ -199,7 +202,6 @@ document.querySelector('#createProject').onsubmit = async (e) => {
  */
 async function selectProject(project){
     let cities = await Api.getCities(project.id)
-    document.title = `${project.siteAddress} (Настройки проекта) #${project.id}`
     data.cities = new Set(cities.map(obj => obj.cityName))
 
 
@@ -228,19 +230,13 @@ async function selectProject(project){
         let city = cities[i].cityName
         selectedCitiesList.innerHTML +=
             `
-            <div id="${city}" class="selected_city">${city}&nbsp;<i class="delete" onclick="removeCity('${city}')" title="Удалить">×</i></div>
+            <div data-value="${city}" class="selected_city">${city}&nbsp;<i class="delete" onclick="removeCity('${city}')" title="Удалить">×</i></div>
         `
     }
 }
 
 function domainFromUrl(url) {
-    let result
-    let match
-    if (match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im)) {
-        result = match[1]
-        if (match = result.match(/^[^\.]+\.(.+\..+)$/)) {
-            result = match[1]
-        }
-    }
-    return result
+    if(url.startsWith('http'))
+        url = url.split('//')[1]
+    return url.split('/')[0]
 }

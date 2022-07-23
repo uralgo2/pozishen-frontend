@@ -1,3 +1,19 @@
+const openPopUpButton = document.querySelectorAll('button[data-action="select-project"]')
+
+const popUp = document.querySelector("#popup_select_project")
+const html = document.querySelector('html')
+
+const togglePopUp = () => {
+    if (html.getAttribute("data-popup-open") == "true") {
+        popUp.classList.remove("show")
+        html.setAttribute("data-popup-open", "false")
+    } else {
+        popUp.classList.add("show")
+        html.setAttribute("data-popup-open", "true")
+    }
+}
+
+openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()));
 (async () => {
     let isAuth = await Api.isAuthorized()
 
@@ -10,6 +26,31 @@
         document.querySelector('.g_user_balance').innerText = `${Number(Api.me.balance).toFixed(2)} ₽`
 
         document.querySelector('.logins-el > i:nth-child(1) > i:nth-child(2)').innerText = Api.me.email
+
+        let projectsPopup = document.querySelector("#popup_select_project .g_popup .content")
+
+        await Api.requestInfo()
+
+        if(!Api.projects.length)
+            document.querySelector(".g_ellipsis").innerText = 'Нет проектов'
+        Api.projects.map(project => {
+            let li = document.createElement('li')
+
+            li.innerHTML += `
+                    <a href="/positions.html?id=${project.id}" data-id="${project.id}" data-user_id="${Api.me.id}" data-url="${project.siteAddress}"
+                       data-right="11111111111111111111" data-on="1" title="${project.siteAddress}" class="g-active">
+                        <i class="g_column">
+                            <i class="name"> ${project.siteAddress}</i>
+                            <i class="id g_comment">id ${project.id}</i>
+                        </i>
+                        <i class="more icon-any" data-top-popup="#popup_select_project_module" data-top-popup-use-original="1"
+                           data-top-popup-p="2" data-top-popup-pos-by="fixed"></i>
+                    </a>
+                    <a href="https://${project.siteAddress}" class="icon-external_link url" target="_blank"></a>
+        `
+            projectsPopup.appendChild(li)
+        })
+
     }
     else {
         document.querySelectorAll('.unloggedButtons').forEach((e) => e.style = '')

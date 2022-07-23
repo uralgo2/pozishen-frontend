@@ -18,6 +18,10 @@ class Api {
      */
     static selectedGroup
     /**
+     * @type {Subgroup}
+     */
+    static selectedSubgroup
+    /**
      * @type {Group[]}
      */
     static groups = []
@@ -129,6 +133,22 @@ class Api {
     }
 
     /**
+     * @param groupId {Number}
+     * @returns {Promise<Error|Subgroup[]>}
+     */
+    static async getSubgroups(groupId){
+        if(!Api.secret)
+            return new Error("Вы не авторизованы")
+
+        let res = await fetch(Api.domain + `/getSubgroups?groupId=${groupId}&c=${Api.secret}`)
+        let json = await res.json()
+
+        if(json['successful'])
+            return Api.groups = json['data']
+        else
+            return new Error(json['message'])
+    }
+    /**
      * @param projectId {Number}
      * @returns {Promise<Error|Group[]>}
      */
@@ -165,14 +185,15 @@ class Api {
     /**
      * @param groupId {Number}
      * @param projectId {Number}
+     * @param subgroupId {Number}
      * @param page {Number}
      * @returns {Promise<Error|SearchingQuery[]>}
      */
-    static async getQueries(groupId, projectId, page = 0){
+    static async getQueries(groupId, projectId, subgroupId = 0, page = 0){
         if(!Api.secret)
             return new Error("Вы не авторизованы")
 
-        let res = await fetch(Api.domain + `/getQueries?projectId=${projectId}&groupId=${groupId}&p=${page}&c=${Api.secret}`)
+        let res = await fetch(Api.domain + `/getQueries?projectId=${projectId}&groupId=${groupId}&subgroupId=${subgroupId}&p=${page}&c=${Api.secret}`)
         let json = await res.json()
 
         if(json['successful'])
@@ -196,6 +217,20 @@ class Api {
             return new Error(json['message'])
         else
             Api.groups = Api.groups.filter((g) => g.id != groupId)
+    }
+    /**
+     * @param subgroupId {Number}
+     * @returns {Promise<Error|null>}
+     */
+    static async deleteSubgroup(subgroupId){
+        if(!Api.secret)
+            return new Error("Вы не авторизованы")
+
+        let res = await fetch(Api.domain + `/deleteSubgroup?&subgroupId=${subgroupId}&c=${Api.secret}`)
+        let json = await res.json()
+
+        if(!json['successful'])
+            return new Error(json['message'])
     }
     /**
      * @param groupId {Number}
@@ -222,11 +257,29 @@ class Api {
         if(!Api.secret)
             return new Error("Вы не авторизованы")
 
-        let res = await fetch(Api.domain + `/addGroup?projectId=${projectId}&name=${name}&c=${Api.secret}`)
+        let res = await fetch(Api.domain + `/addGroup?projectId=${projectId}&name=${encodeURI(name)}&c=${Api.secret}`)
         let json = await res.json()
 
         if(json['successful']) {
             Api.groups.push(json['data'])
+            return json['data']
+        }
+        else
+            return new Error(json['message'])
+    }
+    /**
+     * @param groupId {Number}
+     * @param name {String}
+     * @returns {Promise<Error|Subgroup>}
+     */
+    static async addSubgroup(groupId, name){
+        if(!Api.secret)
+            return new Error("Вы не авторизованы")
+
+        let res = await fetch(Api.domain + `/addSubgroup?groupId=${groupId}&name=${encodeURI(name)}&c=${Api.secret}`)
+        let json = await res.json()
+
+        if(json['successful']) {
             return json['data']
         }
         else
@@ -238,11 +291,11 @@ class Api {
      * @param text {String}
      * @returns {Promise<Error|SearchingQuery>}
      */
-    static async addQuery(projectId, groupId, text){
+    static async addQuery(projectId, groupId, text, subgroupId = 0){
         if(!Api.secret)
             return new Error("Вы не авторизованы")
 
-        let res = await fetch(Api.domain + `/addQuery?projectId=${projectId}&groupId=${groupId}&text=${text}&c=${Api.secret}`)
+        let res = await fetch(Api.domain + `/addQuery?projectId=${projectId}&groupId=${groupId}&text=${encodeURI(text)}&c=${Api.secret}&subgroupId=${subgroupId}`)
         let json = await res.json()
 
         if(json['successful'])
@@ -409,14 +462,36 @@ class Api {
      * @param to {Date}
      * @param from {Date}
      * @param groupId {Number}
+     * @param subgroupId {Number}
      * @param page {Number}
      * @returns {Promise<Error|Position[]>}
      */
-    static async getPositions(projectId, city, engine, to, from, groupId = 0, page = 0){
+    static async getPositions(projectId, city, engine, to, from, groupId = 0, subgroupId = 0, page = 0){
         if(!Api.secret)
             return new Error("Вы не авторизованы")
 
-        let res = await fetch(Api.domain + `/getPositions?c=${Api.secret}&projectId=${projectId}&city=${city}&engine=${engine}&groupId=${groupId}&p=${page}&to=${to.toISOString()}&from=${from.toISOString()}`)
+        let res = await fetch(Api.domain + `/getPositions?c=${Api.secret}&projectId=${projectId}&city=${city}&engine=${engine}&subgroupId=${subgroupId}&groupId=${groupId}&p=${page}&to=${to.toISOString()}&from=${from.toISOString()}`)
+        let json = await res.json()
+
+        if(json['successful'])
+            return json['data']
+        else
+            return new Error(json['message'])
+    }
+
+    /**
+     * @param projectId {Number}
+     * @param city {String}
+     * @param engine {'yandex'|'google'}
+     * @param groupId {Number}
+     * @param subgroupId {Number}
+     * @returns {Promise<Error|{last: Position, first: Position}>}
+     */
+    static async getLastAndFirstPosition(projectId, city, engine, groupId = 0, subgroupId = 0){
+        if(!Api.secret)
+            return new Error("Вы не авторизованы")
+
+        let res = await fetch(Api.domain + `/getLastAndFirstPositionDate?c=${Api.secret}&projectId=${projectId}&city=${city}&engine=${engine}&groupId=${groupId}&subgroupId=${subgroupId}`)
         let json = await res.json()
 
         if(json['successful'])
@@ -443,15 +518,14 @@ class Api {
     }
 
     /**
-     * @param loadLimit {Number}
      * @param maxResourceLimit {Number}
      * @returns {Promise<Error|null>}
      */
-    static async updateSettings(loadLimit, maxResourceLimit){
+    static async updateSettings(maxResourceLimit){
         if(!Api.secret)
             return new Error("Вы не авторизованы")
 
-        let res = await fetch(Api.domain + `/updateSettings?c=${Api.secret}&loadLimit=${loadLimit}&maxResourceLimit=${maxResourceLimit}`)
+        let res = await fetch(Api.domain + `/updateSettings?c=${Api.secret}&maxResourceLimit=${maxResourceLimit}`)
 
         let json = await res.json()
 
@@ -466,13 +540,14 @@ class Api {
      * @param to {Date}
      * @param from {Date}
      * @param groupId {Number}
+     * @param subgroupId {Number}
      * @returns {Promise<Error|Number>}
      */
-    static async getPositionsCount(projectId, city, engine, to, from,groupId = 0){
+    static async getPositionsCount(projectId, city, engine, to, from,groupId = 0, subgroupId = 0){
         if(!Api.secret)
             return new Error("Вы не авторизованы")
 
-        let res = await fetch(Api.domain + `/getPositionsCount?c=${Api.secret}&projectId=${projectId}&city=${city}&engine=${engine}&groupId=${groupId}&to=${to.toISOString()}&from=${from.toISOString()}`)
+        let res = await fetch(Api.domain + `/getPositionsCount?c=${Api.secret}&projectId=${projectId}&city=${city}&engine=${engine}&groupId=${groupId}&groupId=${subgroupId}&to=${to.toISOString()}&from=${from.toISOString()}`)
         let json = await res.json()
 
         if(json['successful'])
@@ -503,16 +578,15 @@ class Api {
             return new Error(json['message'])
     }
     /**
-     * @param projectId {Number}
      * @param to {Date}
      * @param from {Date}
      * @returns {Promise<Error|Number>}
      */
-    static async getExpensesCount(projectId, to, from){
+    static async getExpensesCount(to, from){
         if(!Api.secret)
             return new Error("Вы не авторизованы")
 
-        let res = await fetch(Api.domain + `/getExpensesCount?c=${Api.secret}&projectId=${projectId}&to=${to.toISOString()}&from=${from.toISOString()}`)
+        let res = await fetch(Api.domain + `/getExpensesCount?c=${Api.secret}&to=${to.toISOString()}&from=${from.toISOString()}`)
         let json = await res.json()
 
         if(json['successful'])
@@ -521,17 +595,16 @@ class Api {
             return new Error(json['message'])
     }
     /**
-     * @param projectId {Number}
      * @param to {Date}
      * @param from {Date}
      * @param page {Number}
      * @returns {Promise<Error|Expense[]>}
      */
-    static async getExpenses(projectId, to, from, page = 0){
+    static async getExpenses(to, from, page = 0){
         if(!Api.secret)
             return new Error("Вы не авторизованы")
 
-        let res = await fetch(Api.domain + `/getExpenses?c=${Api.secret}&projectId=${projectId}&to=${to.toISOString()}&from=${from.toISOString()}&p=${page}`)
+        let res = await fetch(Api.domain + `/getExpenses?c=${Api.secret}&to=${to.toISOString()}&from=${from.toISOString()}&p=${page}`)
         let json = await res.json()
 
         if(json['successful'])
@@ -584,6 +657,38 @@ class Api {
         let json = await res.json()
 
         if(!json['successful'])
+            return new Error(json['message'])
+    }
+    /**
+     * @param projectId {Number}
+     * @param groupId {Number}
+     * @param text {String[]}
+     * @param subgroupId {Number}
+     * @returns {Promise<Error|SearchingQuery[]>}
+     */
+    static async addQueries(projectId, groupId, text, subgroupId = 0){
+        if(!Api.secret)
+            return new Error("Вы не авторизованы")
+
+        let res = await fetch(Api.domain + `/addQueries`,{
+                method: 'post',
+                body: JSON.stringify({
+                    c: Api.secret,
+                    projectId: projectId,
+                    groupId: groupId,
+                    subgroupId: subgroupId,
+                    texts: text
+                }),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            }
+            )
+        let json = await res.json()
+
+        if(json['successful'])
+            return json['data']
+        else
             return new Error(json['message'])
     }
 }

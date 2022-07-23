@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" class="g-theme_regular" data-popup-open="false">
+<html lang="en" class="g-theme_regular" data-popup-open="false" style="overflow-y: hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Денежные средства пользователей</title>
+    <title>Расходы</title>
     <link rel="stylesheet" href="media/css/_main.css">
     <link rel="stylesheet" href="media/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -143,13 +143,13 @@
 
                 <div class="g g_input g_input_range g_input_date_range">
                     <label class="g g_input g_input-date1 g_input_date " data-g_icon="">
-                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')" class="g g_date hasDatepicker not-empty" autocomplete="off" name="date1"
+                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')" class="from_date_bank g g_date hasDatepicker not-empty" autocomplete="off" name="date1"
                                value="2022-07-22" data-api-operator="GREATER_THAN_EQUALS" title="от" placeholder="от"
                                id="dp1657176628063">
                     </label>
                     <i class="g_dash"></i>
                     <label class="g g_input g_input-date2 g_input_date g-text_right" data-g_icon="">
-                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')"  class="g g_date hasDatepicker not-empty" autocomplete="off" name="date2"
+                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')"  class="to_date_bank g g_date hasDatepicker not-empty" autocomplete="off" name="date2"
                                value="2022-07-22" data-api-operator="LESS_THAN_EQUALS" title="до" placeholder="до"
                                id="dp1657176628064">
                     </label>
@@ -168,9 +168,8 @@
                         <i> руб.</i>
                     </longlist_cell>
                 </i>
-                <i class="body top-longlist" style="--top-longlist-row-height:auto;">
-                    <longlist>
-
+                <i class="body top-longlist" style="--top-longlist-row-height:auto; overflow: hidden; height: 60vh">
+                    <longlist id="datalist" style="overflow-y:scroll;">
                     </longlist>
                 </i>
             </i>
@@ -185,7 +184,7 @@
 </div>
 
 <div id="toolbar">
-    <a class="projects"  data-top-popup="#popup_select_project" data-action="select-project" data-top-popup-p="3" data-top-popup-front="#body">
+    <a href="/projects.html" class="projects"  data-top-popup="#popup_select_project" data-action="select-project" data-top-popup-p="3" data-top-popup-front="#body">
         <i class="icon-file"></i>
         <i>Проекты</i>
     </a>

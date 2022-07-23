@@ -8,16 +8,6 @@
     document.querySelector('.g_user_balance').innerText = Number(Api.me.balance).toFixed(2) + ' ₽'
 
     let searchParams = new URL(window.location.href).searchParams
-    if(Api.projects.length) {
-        let id
-        if((id = Number(searchParams.get('id')))){
-            await selectProject(Api.projects.find((p) => p.id === id))
-        }
-        else
-            await selectProject(Api.projects[0])
-    }
-    else
-        document.querySelector(".g_ellipsis").innerText = 'Нет проектов'
     let projectsPopup = document.querySelector("#popup_select_project .g_popup .content")
     Api.projects.map(project => {
         let li = document.createElement('li')
@@ -38,6 +28,18 @@
 
         projectsPopup.appendChild(li)
     })
+
+    if(Api.projects.length) {
+        let id
+        if((id = Number(searchParams.get('id')))){
+            await selectProject(Api.projects.find((p) => p.id === id))
+        }
+        else
+            await selectProject(Api.projects[0])
+    }
+    else
+        document.querySelector(".g_ellipsis").innerText = 'Нет проектов'
+
 })()
 const groupSearchOpen = document.querySelector('#searchGroups')
 const groupSearchInput = document.querySelector('#groupSearchInput')
@@ -85,24 +87,28 @@ const addQueriesPopup = async (e) => {
 
     await importQueries(v)
 
+    queriesText.value = ''
+
     closeQueriesPopup()
 }
 async function importQueries(raw){
-    let queries = raw.split(/\r?\n/)
+    let queries = raw.split(/\r?\n/).filter((t) => t.trim() != '')
     let project = Api.selectedProject
     let group = Api.selectedGroup
     if(!project) return
 
     let queriesList = document.querySelector("#phrases_keywords > div:nth-child(1) > longlist:nth-child(1)")
 
-    let count = 0
-    for(let query of queries){
-        if(query === '') continue
+    let elems = ''
+    let responses = await Api.addQueries(project.id, group.id, queries)
 
-        let res = await Api.addQuery(project.id, group.id,query)
-        let row = document.createElement('longlist_row')
-        row.classList.add('id-20051234', 'row')
-        row.innerHTML = `
+    for(let i = 0; i < responses.length; i++){
+
+        let res = responses[i]
+        let query = queries[i]
+
+        elems += `
+<longlist_row id="query${res.id}" class="id-20051234 row">
     <i class="tags top-tag-setter fixed_cell" style="transform: translateX(0px);">
                                             <i class="g-active" data-tag_id="1" data-tag_color_id="1"
                                                title="Тег по умолчанию"></i>
@@ -114,31 +120,30 @@ async function importQueries(raw){
                                         <i class="path fixed_cell" style="transform: translateX(0px);">
                                             <i>--</i>
                                         </i>
-                                        <i class="del icon-trash" title="Удалить"></i>
-    `
-        queriesList.appendChild(row)
-        row.id = `query${res.id}`
-        row.querySelector('.del').onclick = async (e) => await deleteQuery(res.id,group.id, project.id)
-        ++count
+                                        <i onclick="deleteQuery(${res.id}, ${group.id}, ${project.id});this.target.onclick = null" class="del icon-trash" title="Удалить"></i>
+    </longlist_row>
+`
     }
-    document.getElementById(`queriesCountGroup${group.id}`).innerText = `${group.queriesCount + count}`
+    queriesList.innerHTML += elems
+    document.getElementById(`queriesCountGroup${group.id}`).innerText = `${group.queriesCount += responses.length}`
 }
 async function selectGroupSearch(search){
     let groups = groupElements
 
     const has = (t, s) => {
         let h = false
+        s = s.toUpperCase()
         t.split(' ').map((v) => {
-            if(s.indexOf(v) !== -1)
+            if(s.indexOf(v.toUpperCase()) !== -1)
                 h = true
         })
         return h
     }
-
+    Api.selectedGroup = null
     let id = 0;
     for(let i = 0; i < groups.length; i++){
         let group = groups[i]
-
+        group.classList.remove('active')
         let h = has(search, group.querySelector('i.name.renamer > i.v').innerText)
         if(h && id == 0)
             id =  Number(group.getAttribute('data-id'))
@@ -151,18 +156,8 @@ async function selectGroupSearch(search){
 
     }
 
-    let s = groupElements.find((v) => v.id.replace('group', '') == Api.selectedGroup.id)
+    document.querySelector("#phrases_keywords > div:nth-child(1) > longlist:nth-child(1)").innerHTML = ''
 
-    if(s && s.hidden){
-
-        if(id){
-            Api.selectedGroup = undefined
-            await selectGroup(Api.groups.find((v) => v.id == id))
-        }
-
-        else
-            document.querySelector("#phrases_keywords > div:nth-child(1) > longlist:nth-child(1)").innerHTML = ''
-    }
 }
 
 async function selectQuerySearch(search){
@@ -170,8 +165,9 @@ async function selectQuerySearch(search){
 
     const has = (t, s) => {
         let h = false
+        s = s.toUpperCase()
         t.split(' ').map((v) => {
-            if(s.indexOf(v) !== -1)
+            if(s.indexOf(v.toUpperCase()) !== -1)
                 h = true
         })
         return h
@@ -332,7 +328,6 @@ document.querySelector('i.to_add:nth-child(3)').onclick = async () => {
 async function selectProject(project){
 
     document.querySelector(".g_ellipsis").innerText = project.siteAddress
-    document.title = `${project.siteAddress} (Семантическое ядро) #${project.id}`
     document.querySelector('#settingsLink').href = `/edit-project.html?id=${project.id}`
     document.querySelector('#searchLink').href = `/requests-new.html?id=${project.id}`
     document.querySelector('#positionsLink').href = `/positions.html?id=${project.id}`
@@ -352,14 +347,16 @@ async function selectProject(project){
 
     groupElements = []
     // добавить колличество запросов для группы, удаление и добавление групп / запросов
-    groups.map(group => {
+    let groupsHtml = ''
+    for(let group of groups){
         let row = document.createElement("longlist_row")
         row.id = `group${group.id}`
-        row.className = "row id-23265330"
-        row.setAttribute("data-id", group.id.toString())
+        row.classList.add("row", "id-23265330")
+        row.setAttribute("data-id", group.id)
         row.setAttribute('data-n', '0')
 
-        Api.getQueriesCountForGroup(project.id, group.id).then(count => {
+        let count = await Api.getQueriesCountForGroup(project.id, group.id)
+
             row.innerHTML = `
                     <i class="name renamer" title="${group.groupName}">
                     <i class="on on-1" title="Включить / Выключить группу"></i>
@@ -369,19 +366,24 @@ async function selectProject(project){
                 <i id="queriesCountGroup${group.id}" class="count_keywords">${count}</i>
                 <i  onclick="deleteGroup(${group.id}, ${project.id})" class="del icon-trash" title="Удалить"></i>
         `
-            let listener = async (e) => {
-                await selectGroup(group)
-            }
-            row.querySelector('.name').onclick =
-                row.querySelector('.count_keywords').onclick = listener
-        })
 
+
+        groupsHtml += row.outerHTML
+    }
+
+
+    groupsList.innerHTML = groupsHtml
+    let i = 0
+    for(let row of groupsList.children) {
+        let group = groups[i]
+        let listener = async (e) => {
+            await selectGroup(group)
+        }
+        row.querySelector('.name').onclick =
+            row.querySelector('.count_keywords').onclick = listener
         groupElements.push(row)
-
-        groupsList.appendChild(row)
-
-
-    })
+        i++
+    }
     if(groups.length)
         await selectGroup(groups[0])
 }
@@ -407,14 +409,19 @@ async function selectGroup(group){
     Api.selectedGroup = group
     let project = Api.selectedProject
 
-    groupElements.map(e =>
-        e.getAttribute('data-id') == group.id
-            ? e.classList.add("active")
-            : e.classList.remove('active')
-    )
+    for(let e of groupElements){
+            if(e.getAttribute('data-id') == group.id) {
+                e.classList.add("active")
+            }
+            else
+              e.classList.remove('active')
+    }
+
 
     let queriesList = document.querySelector("#phrases_keywords > div:nth-child(1) > longlist:nth-child(1)")
+
     queriesList.innerHTML = ''
+    let elems = ''
 
     for(let i = 0; i < group.queriesCount; i += 25) {
         /**
@@ -422,9 +429,9 @@ async function selectGroup(group){
          */
         let queries = await Api.getQueries(group.id, project.id, i / 25)
 
-        queries.map(query => {
+        for(let query of queries) {
 
-                queriesList.innerHTML +=
+                elems +=
                     `
                 <longlist_row id="query${query.id}" class="row id-20051234" data-id="20051234" data-n="0">
                                         <i class="tags top-tag-setter fixed_cell" style="transform: translateX(0px);">
@@ -438,10 +445,11 @@ async function selectGroup(group){
                                         <i class="path fixed_cell" style="transform: translateX(0px);">
                                             <i>--</i>
                                         </i>
-                                        <i onclick="deleteQuery(${query.id}, ${group.id}, ${project.id})" class="del icon-trash" title="Удалить"></i>
+                                        <i onclick="deleteQuery(${query.id}, ${group.id}, ${project.id});this.target.onclick=null" class="del icon-trash" title="Удалить"></i>
                 </longlist_row>
                 `
-            })
+        }
+        queriesList.innerHTML += elems
     }
 
 }

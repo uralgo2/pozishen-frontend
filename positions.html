@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" class="g-theme_regular" data-popup-open="false" data-has_leftmenu="1">
+<html lang="en" class="g-theme_regular" data-popup-open="false" data-has_leftmenu="1" style="max-height: 100vh; overflow-y: hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1200, initial-scale=0.0">
-    <title>Positions</title>
+    <title>Позиции</title>
     <link rel="stylesheet" href="media/css/_main.css">
     <link rel="stylesheet" href="media/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -134,7 +134,7 @@
             </li>
         </ul>
     </aside>
-    <div id="content-positions">
+    <div id="content-positions" style="overflow-y: auto">
         <div id="bar" class="g_theme_classic pad11 dynamics_bar" data-support_dialog_url="support/rankings">
             <div class="need_config_wrapper">
 
@@ -144,8 +144,8 @@
                     <div class="project_update_wait" style="" data-title="Задачи проекта добавлены в очередь.">
                     </div>
                     <div class="project_update_process" style="" data-title="Выполняется проверка позиций.">0%</div>
-                    <a href="#" class="project_update_go btn status0"
-                       data-title="Последнее обновление <br> 06.07.2022 12:00:30"></a>
+                    <button href="#" class="project_update_go btn status0" title="Запустить проверку"
+                       data-title="Последнее обновление <br> 06.07.2022 12:00:30"></button>
                 </div>
 
                 <i class="icon-globe label"></i>
@@ -168,16 +168,16 @@
                 </label>
                 </i>
 
-                <i class="icon-calendar-16 label"></i>
+                <i class="icon-calendar-16 label">
                 <div class="g g_input g_input_range g_input_date_range position-calendar">
                     <label class="g g_input g_input-date1 g_input_date " data-g_icon="">
-                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')" class="g g_date hasDatepicker not-empty" autocomplete="off" name="date1"
+                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')" class="from_date g g_date hasDatepicker not-empty" autocomplete="off" name="date1"
                                value="2022-07-22" data-api-operator="GREATER_THAN_EQUALS" title="от" placeholder="от"
                                id="dp1657176628063">
                     </label>
                     <i class="g_dash"></i>
                     <label class="g g_input g_input-date2 g_input_date g-text_right" data-g_icon="">
-                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')"  class="g g_date hasDatepicker not-empty" autocomplete="off" name="date2"
+                        <input type="date" onfocus="this.classList.add('not-empty')" onblur="if(!this.value)this.classList.remove('not-empty')"  class="to_date g g_date hasDatepicker not-empty" autocomplete="off" name="date2"
                                value="2022-07-22" data-api-operator="LESS_THAN_EQUALS" title="до" placeholder="до"
                                id="dp1657176628064">
                     </label>
@@ -196,7 +196,7 @@
             </div>
         </div>
 
-        <i class="g_theme_classic">
+        <i class="g_theme_classic" style="overflow: auto">
             <div class="g_theme_classic pad11">
                 <div id="dynamics_summary_wrapper" class="">
                     <div id="dynamics_summary" class="flex ">
@@ -258,7 +258,7 @@
                 <div id="dynamics_table_wrapper" style="height: 395px;">
                     <div class="loading" style="display: none;"></div>
 
-                    <div class="fixed_float_wrapper" style="height: 69px;">
+                    <div class="fixed_float_wrapper" style="">
                         <div id="dynamics_table" class="new fixed_float frequency3_show frequency3_g_show"
                              data-show_groups_names="1">
                             <div class="header">
@@ -298,7 +298,7 @@
                                                             <a
                                                                 href="#" class="search_phrase icon-search"
                                                                 title="Поиск"></a></span>
-                                                    <span hidden class="search_phrase_open" style="margin-left: 0 !important;">
+                                                    <span class="search_phrase_open" style="margin-left: 0 !important;display: none">
  <label class="g g_input g_input-search_phrase_string g_input_with_cleaner" style="max-width: 50%"><input
          style="display: block;outline: none;height: 25%;width: 100%;border-radius: 1px;border-color: blue;border-width: 1px;margin: 0;color: blue"
          type="text" class="g"

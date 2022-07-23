@@ -26,28 +26,16 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
         document.querySelector('.logins-el > i:nth-child(1) > i:nth-child(2)').innerText = Api.me.email
 
         await Api.requestInfo()
-        let namesList = document.querySelector('.top_longlist_fixed_column')
-        let infoList = document.querySelector('.body > longlist:nth-child(2)')
+        let projectsList = document.querySelector('.top_longlist_fixed_column')
 
         let projectsPopup = document.querySelector("#popup_select_project .g_popup .content")
 
         if(!Api.projects.length)
             document.querySelector(".g_ellipsis").innerText = 'Нет проектов'
-        Api.projects.map(project => {
-            let row_name = document.createElement('longlist_row')
-
-            row_name.innerHTML = `
-                <longlist_cell data-name="cb" class="top_longlist_fixed_column_cell">
-                                <i class="main">
-                                    <i class="name">
-                                        <i class="name_val">
-                                            <a href="/positions.html?id=${project.id}">${project.siteAddress}</a>
-                                        </i>
-                                    </i>
-                                    <input class="name_edit" type="text">
-                                </i>
-                            </longlist_cell>
-            `
+        let projectsHtml = ''
+        let projectHtml = ''
+        for(let project of Api.projects){
+            let row = document.createElement('longlist_row')
 
             let li = document.createElement('li')
 
@@ -63,13 +51,21 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
                 </a>
                 <a href="https://${project.siteAddress}" class="icon-external_link url" target="_blank"></a>
     `
-            let row_info = document.createElement('longlist_row')
 
-            row_info.innerHTML =
-                `
+            row.innerHTML =
+                `            <longlist_cell data-name="cb" class="top_longlist_fixed_column_cell">
+                                <i class="main">
+                                    <i class="name">
+                                        <i class="name_val">
+                                            <a href="/positions.html?id=${project.id}">${project.siteAddress}</a>
+                                        </i>
+                                    </i>
+                                    <input class="name_edit" type="text">
+                                </i>
+                            </longlist_cell>
                             <longlist_cell data-name="positions_time">
                                 <i class="date">
-                                    ${formatDate(new Date(project.lastCollection))}
+                                    ${project.lastCollection == '-' ? 'По таймеру' : formatDate(new Date(project.lastCollection))}
                                 </i>
                             </longlist_cell>
                             <longlist_cell data-name="positions_time">
@@ -79,10 +75,11 @@ openPopUpButton.forEach((e) => e.addEventListener('click', () => togglePopUp()))
                                 <a href="/requests-new.html?id=${project.id}">${project.queriesCount}</a>
                             </longlist_cell>
                 `
-            namesList.appendChild(row_name)
-            projectsPopup.appendChild(li)
-            infoList.appendChild(row_info)
-        })
+            projectsHtml += row.outerHTML
+            projectHtml += li.outerHTML
+        }
+        projectsList.innerHTML = projectsHtml
+        projectsPopup.innerHTML = projectHtml
     }
     else window.location.href = '/'
 
@@ -109,11 +106,13 @@ async function collect(id){
 
     el.setAttribute('data-disabled', '1')
     el.setAttribute('disabled', 'true')
+    el.title = 'Идет сбор'
 
     await Api.collect(id)
 
     setTimeout( () => {
         el.removeAttribute('data-disabled')
         el.removeAttribute('disabled')
-    }, 1000)
+        el.title = 'Запустить проверку'
+    }, 20000)
 }

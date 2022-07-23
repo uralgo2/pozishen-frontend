@@ -93,13 +93,12 @@ async function showCities (search)
 {
     let list = document.querySelector('#citiesListContent')
 
-    list.innerHTML = ''
+
     let cities = (await Api.searchCities(search)).filter((city) => !data.cities.has(city.name))
     if(cities.length) openCitiesList()
     else closeCitiesList()
     let cityInput = document.querySelector('#cityInput')
     cityInput.onkeydown = async (e) => {
-        e.preventDefault()
         if(e.keyCode === 13){
             if(cities.length){
                 cityInput.value = ''
@@ -108,6 +107,7 @@ async function showCities (search)
             }
         }
     }
+    list.innerHTML = ''
     for(let i = 0; i < cities.length; i++){
         let city = cities[i]
         let row = document.createElement('li')
@@ -119,28 +119,28 @@ async function showCities (search)
                                     </i>
                                 </a>
         `
-
-
-        list.append(row)
-
         row.onclick = async (e) => {
+            closeCitiesList()
             cityInput.value = ''
             await addCity(city.name)
-            closeCitiesList()
         }
+
+        list.append(row)
     }
+    if(!list.children.length)
+        closeCitiesList()
 }
 async function addCity(city){
 
     selectedCitiesList.innerHTML +=
         `
-            <div id="${city}" class="selected_city">${city}&nbsp;<i class="delete" onclick="removeCity('${city}')" title="Удалить">×</i></div>
+            <div data-value="${city}" class="selected_city">${city}&nbsp;<i class="delete" onclick="removeCity('${city}')" title="Удалить">×</i></div>
         `
     data.cities.add(city)
 
 }
 async function removeCity(city){
-    document.querySelector(`#${city}`).remove()
+    document.querySelector(`.selected_city[data-value='${city}']`).remove()
     data.cities.delete(city)
 }
 
@@ -179,13 +179,7 @@ document.querySelector('#createProject').onsubmit = async (e) => {
 }
 
 function domainFromUrl(url) {
-    let result
-    let match
-    if (match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im)) {
-        result = match[1]
-        if (match = result.match(/^[^\.]+\.(.+\..+)$/)) {
-            result = match[1]
-        }
-    }
-    return result
+    if(url.startsWith('http'))
+        url = url.split('//')[1]
+    return url.split('/')[0]
 }
