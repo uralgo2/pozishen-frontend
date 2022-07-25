@@ -80,3 +80,10 @@
  *     foundAddress: String
  * }}
  */
+
+/**
+ * @name XLSXImportQuery
+ * @type {
+ *     [String, String, String?]
+ * }
+ */

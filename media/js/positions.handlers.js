@@ -100,6 +100,7 @@ async function showDates(){
     let toInput = document.querySelector('#dp1657176628064')
     toInput.valueAsDate = data.to;
 }
+
 async function selectProject(project){
     document.querySelector(".g_ellipsis").innerText = project.siteAddress
     document.querySelector('#settingsLink').href = `/edit-project.html?id=${project.id}`
@@ -142,6 +143,7 @@ async function selectProject(project){
     data.city = (await Api.getCities(data.projectId))[0].cityName
     data.search = ''
     data.maxPage = 0
+    data.subgroupId = 0
     document.querySelector('#bar > div.need_config_wrapper > i.no_common_view.btn.icon-cog')
         .onclick = async (e) => window.location.href = `/edit-project.html?id=${project.id}`
 
@@ -215,27 +217,52 @@ async function showGroups(){
 
     select.onchange = async function (e){
         let selected = this.selectedIndex
-        if(selected !== -1)
-            await selectGroup(e.target.value)
 
+        if(selected !== -1) {
+            console.log(this.innerHTML)
+            const elem = e.target.children[selected]
+            const type = elem.getAttribute('data-type')
+
+            if (type === "group")
+                await selectGroup(elem.value)
+            else
+                await selectSubgroup(elem.getAttribute('data-group-id'), elem.value)
+        }
     }
 
     let option = document.createElement("option")
     option.value = '0'
     option.index = 0
     option.text = "Все группы"
+    option.setAttribute("data-type", "group")
 
     select.appendChild(option)
 
-    for(let i = 0; i < groups.length; i++){
+    for(let group of groups){
         let option = document.createElement("option")
-        let group = groups[i]
 
-        option.value = group.id
+        option.value = group.id.toString()
         option.index = group.id
         option.text = group.groupName
 
+
+        option.setAttribute("data-type", "group")
+
         select.appendChild(option)
+
+        let subgroups = await Api.getSubgroups(group.id)
+
+        for(let subgroup of subgroups){
+            let option = document.createElement("option")
+
+            option.value = subgroup.id.toString()
+            option.index = subgroup.id
+            option.text = '⠀⠀' + subgroup.subgroupName
+            option.setAttribute("data-type", "subgroup")
+            option.setAttribute("data-group-id", group.id.toString())
+
+            select.appendChild(option)
+        }
     }
 }
 
@@ -253,6 +280,14 @@ async function selectCity(city){
 
 async function selectGroup(id){
     data.groupId = Number(id)
+    data.subgroupId = 0
+
+    await showData()
+}
+
+async function selectSubgroup(groupId, id){
+    data.subgroupId = Number(id)
+    data.groupId = Number(groupId)
 
     await showData()
 }
@@ -339,7 +374,6 @@ async function showData() {
     p31_50 = 0
     p51_100 = 0
     p100plus = 0
-    percentDates = []
     dates = []
     queriesCount = 0
     loaded = true
@@ -352,11 +386,11 @@ async function showData() {
     dateTable.innerHTML = ''
     queriesCount = data.groupId === 0
         ? Api.selectedProject.queriesCount
-        : await Api.getQueriesCountForGroup(Api.selectedProject.id, data.groupId)
+        : await Api.getQueriesCountForGroup(Api.selectedProject.id, data.groupId, data.subgroupId)
     document.querySelector('.total').innerText = `(${queriesCount})`
     dates = getDaysArray(data.from, data.to)
 
-    let lf = await Api.getLastAndFirstPosition(Api.selectedProject.id, data.city, data.searcher,  data.groupId)
+    let lf = await Api.getLastAndFirstPosition(Api.selectedProject.id, data.city, data.searcher,  data.groupId, data.subgroupId)
 
     if(lf.first && lf.last) {
         /**
@@ -380,23 +414,16 @@ async function showData() {
     for (let i = 0; i < dates.length; i++) {
         let date = dates[i].toISOString()
         let fdate = formatDate(dates[i])
-        let asid = formatDate(dates[i], '-')
-        percentDates.push([0, 0])
         dateTable.innerHTML += `
             <td class="date" colspan="1" data-qualifiers-string="${date}"><i title="${fdate}">
-                                                <i class="value" title="Отсортировать по позициям">${fdate}</i><i
-                                                    class="stat"><i data-top-popup="#popup_change_top"
-                                                                    data-top-popup-pos-by="fixed"
-                                                                    data-top-popup-p="3" data-top-popup-notch="1"
-                                                                    title="Процент запросов в топ10 (для выбранной группы)"><span
-                                                    class="percent"><i class="icon-percent"></i><sup id="percentDate${asid}">0</sup><span
-                                                    class="top"></span></span></i></i></i></td>
+                                                <i class="value" title="Отсортировать по позициям">${fdate}</i></i></td>
         `
 
     }
 
 
-        let queries = await Api.getQueries(data.groupId, Api.selectedProject.id, 0)
+        let queries = await Api.getQueries(data.groupId, Api.selectedProject.id, data.subgroupId, 0)
+        let frequencies = await Api.getFrequency(queries.map(q => q.queryText), data.city)
 
         for (let j = 0; j < queries.length; j++) {
             let query = queries[j]
@@ -416,6 +443,7 @@ async function showData() {
                                                     <div class="middle">${query.queryText}</div>
                                                 </div>
                                             </td>
+                                            <td class="frequency"><i class="frequency3">${frequencies[j].frequency || '--'}</i></td>
                                             <td class="visitors_for_phrase">0</td>
                                         </tr>
             `
@@ -447,8 +475,7 @@ async function showData() {
                     let _positions = positions.filter((p) => p.lastCollection.split('T')[0] == dateS)
 
                     if (_positions.length) {
-                        (posCount++)
-                        percentDates[k][1]++
+                        posCount++
                         let position = _positions[0]
                         let cell = resultsTable.querySelector(`#result${k}-${position.queryId}`)
 
@@ -469,7 +496,6 @@ async function showData() {
                             if (position.place <= 3)
                                 p1_3++
                             if (position.place <= 10) {
-                                percentDates[k][0]++
                                 p1_10++
                             } else if (position.place <= 30)
                                 p11_30++
@@ -587,13 +613,6 @@ async function showData() {
         let el100plus = document.querySelector('div.el:nth-child(6)')
         el100plus.querySelector('.percent').innerText = `(0%)`
         el100plus.querySelector('.\\31 01_10000').innerText = 0
-    }
-    for(let i = 0; i < percentDates.length; i++){
-        let percent = percentDates[i]
-        let date = dates[i]
-
-        if(percent[1] !== 0)
-        dateTable.querySelector(`#percentDate${formatDate(date, '-')}`).innerText = (percent[0] / percent[1] * 100).toFixed(0)
     }
 }
 
@@ -603,12 +622,12 @@ async function loadMore(){
 
     let resultsTable = document.querySelector('div.cols:nth-child(2) > table:nth-child(1) tbody')
 
-    let dateTable = document.querySelector('div.cols:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1)')
-
 
     if (Math.ceil(queriesCount / 25) < data.maxPage) return;
 
-        let queries = await Api.getQueries(data.groupId, Api.selectedProject.id, data.maxPage)
+
+        let queries = await Api.getQueries(data.groupId, Api.selectedProject.id, data.subgroupId, data.maxPage)
+        let frequencies = await Api.getFrequency(queries.map(q => q.queryText), data.city)
 
         for (let j = 0; j < queries.length; j++) {
             let query = queries[j]
@@ -628,6 +647,7 @@ async function loadMore(){
                                                     <div class="middle">${query.queryText}</div>
                                                 </div>
                                             </td>
+                                            <td class="frequency"><i class="frequency3">${frequencies[j].frequency ?? '--'}</i></td>
                                             <td class="visitors_for_phrase">0</td>
                                         </tr>
             `
@@ -659,8 +679,7 @@ async function loadMore(){
                     let _positions = positions.filter((p) => p.lastCollection.split('T')[0] == dateS)
 
                     if (_positions.length) {
-                        (posCount++)
-                        percentDates[k][1]++
+                        posCount++
                         let position = _positions[0]
                         let cell = resultsTable.querySelector(`#result${k}-${position.queryId}`)
 
@@ -681,7 +700,6 @@ async function loadMore(){
                             if (position.place <= 3)
                                 p1_3++
                             if (position.place <= 10) {
-                                percentDates[k][0]++
                                 p1_10++
                             } else if (position.place <= 30)
                                 p11_30++
@@ -799,13 +817,6 @@ async function loadMore(){
         let el100plus = document.querySelector('div.el:nth-child(6)')
         el100plus.querySelector('.percent').innerText = `(0%)`
         el100plus.querySelector('.\\31 01_10000').innerText = 0
-    }
-    for(let i = 0; i < percentDates.length; i++){
-        let percent = percentDates[i]
-        let date = dates[i]
-
-        if(percent[1] !== 0)
-            dateTable.querySelector(`#percentDate${formatDate(date, '-')}`).innerText = (percent[0] / percent[1] * 100).toFixed(0)
     }
     loaded = true
 }
@@ -821,9 +832,9 @@ document.querySelector('#content-positions').onscroll = async (e) => {
     const position = scrolled + screenHeight
 
    // console.log({scrolled: scrolled, height: height, screenHeight: screenHeight, threshold: threshold, position: position})
-    if (position >= threshold && loaded) {
+    if (position >= threshold && loaded && Math.ceil(queriesCount / 25) > data.maxPage) {
         //console.log("scrolled!")
         data.maxPage++
-        loadMore()
+        await loadMore()
     }
 }

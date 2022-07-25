@@ -168,13 +168,14 @@ class Api {
     /**
      * @param projectId {Number}
      * @param groupId {Number}
+     * @param subgroupId {Number}
      * @returns {Promise<Error|Number>}
      */
-    static async getQueriesCountForGroup(projectId, groupId){
+    static async getQueriesCountForGroup(projectId, groupId, subgroupId = 0){
         if(!Api.secret)
             return new Error("Вы не авторизованы")
 
-        let res = await fetch(Api.domain + `/getQueriesCount?projectId=${projectId}&groupId=${groupId}&c=${Api.secret}`)
+        let res = await fetch(Api.domain + `/getQueriesCount?projectId=${projectId}&groupId=${groupId}&subgroupId=${subgroupId}&c=${Api.secret}`)
         let json = await res.json()
 
         if(json['successful'])
@@ -684,6 +685,63 @@ class Api {
                 },
             }
             )
+        let json = await res.json()
+
+        if(json['successful'])
+            return json['data']
+        else
+            return new Error(json['message'])
+    }
+    /**
+     * @param projectId {Number}
+     * @param data {XLSXImportQuery[]}
+     * @returns {Promise<Error|SearchingQuery[]>}
+     */
+    static async addQueriesXLSX(projectId, data){
+        if(!Api.secret)
+            return new Error("Вы не авторизованы")
+
+        let res = await fetch(Api.domain + `/addQueriesXLSX`,{
+                method: 'post',
+                body: JSON.stringify({
+                    c: Api.secret,
+                    projectId: projectId,
+                    data: data
+                }),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            }
+        )
+        let json = await res.json()
+
+        if(json['successful'])
+            return json['data']
+        else
+            return new Error(json['message'])
+    }
+
+    /**
+     * @param texts {String[]}
+     * @param city {String}
+     * @returns {Promise<Error|Frequency[]>}
+     */
+    static async getFrequency(texts, city) {
+        if(!Api.secret)
+            return new Error("Вы не авторизованы")
+
+        let res = await fetch(Api.domain + `/getFrequency`,
+            {
+                method: 'post',
+                body: JSON.stringify({
+                    c: Api.secret,
+                    city: city,
+                    texts: texts
+                }),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            })
         let json = await res.json()
 
         if(json['successful'])

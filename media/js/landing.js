@@ -1,16 +1,17 @@
+let authButtons = document.querySelectorAll('[data-button-type="auth"]')
+let regButtons = document.querySelectorAll('[data-button-type="reg"]')
+
+const dialog = document.querySelector('#win_auth')
+
+const closeButtons = dialog.querySelectorAll('[data-popup-action="close"]')
+const closePopUp = () => {
+    html.setAttribute("data-popup-open", "false")
+    dialog.setAttribute("tabindex", "-1")
+    dialog.setAttribute("data-select-open", "false")
+}
+
 function init() {
-    let authButtons = document.querySelectorAll('[data-button-type="auth"]')
-    let regButtons = document.querySelectorAll('[data-button-type="reg"]')
 
-    const html = document.querySelector('html')
-    const dialog = document.querySelector('#win_auth')
-
-    const closeButtons = dialog.querySelectorAll('[data-popup-action="close"]')
-    const closePopUp = () => {
-        html.setAttribute("data-popup-open", "false")
-        dialog.setAttribute("tabindex", "-1")
-        dialog.setAttribute("data-select-open", "false")
-    }
     closeButtons.forEach((button) => button.addEventListener('click', () => closePopUp()))
 
     const toggleSelectButtons = dialog.querySelectorAll('[data-popup-action="select-toggle"]')

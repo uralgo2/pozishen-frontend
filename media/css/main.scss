@@ -4,6 +4,22 @@
 * Autoprefixer: v10.4.7
 * Browsers: last 4 version
 */
+
+option[type="subgroup"] {
+  padding-left: 10px;
+}
+#importQueriesHelp {
+  cursor: pointer !important;
+}
+#helpModalBody {
+  p {
+    cursor: text !important;
+
+  }
+  p:hover {
+    text-decoration: none !important;
+  }
+}
 .subgroup_on {
   margin-left: 30px!important;
 }
@@ -1523,7 +1539,7 @@ div.cols:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) tr {
       cursor: pointer;
 
       &:hover {
-        text-decoration: underline !important;
+        text-decoration: underline;
       }
     }
 

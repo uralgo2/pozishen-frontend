@@ -3,12 +3,12 @@ const popUp = document.querySelector("#popup_select_project")
 const html = document.querySelector('html')
 
 const togglePopUp = () => {
-    if (html.getAttribute("data-popup-open") == "true") {
+    if (html.getAttribute("data-popup-open-project-select") == "true") {
         popUp.classList.remove("show")
-        html.setAttribute("data-popup-open", "false")
+        html.setAttribute("data-popup-open-project-select", "false")
     } else {
         popUp.classList.add("show")
-        html.setAttribute("data-popup-open", "true")
+        html.setAttribute("data-popup-open-project-select", "true")
     }
 }
 

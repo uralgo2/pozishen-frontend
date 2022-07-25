@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
 </head>
@@ -256,6 +258,13 @@
                                         <i class="to_add icon-plus-full" data-table-type="items"></i>
                                         <i onclick="openQueriesPopup()" id="importQueries" class="to_import icon-cloud-in"
                                            data-to-view="win_master_positions-keywords:5476772"></i>
+
+                                        <i title="Импорт из Экселя" id="importQueriesXLSX" class="to_import icon-cloud-in"
+                                           data-to-view="win_master_positions-keywords:5476772">
+                                        </i>
+
+                                        <i onclick="openQueriesPopup()" id="importQueriesHelp" title="Справка" class="to_import">?</i>
+
                                         <i class="resizer"></i>
                                         <span id="searchQueries" class="search_phrase_open" style="margin-left: 0 !important;" hidden="">
                                             <label class="g g_input g_input-search_phrase_string g_input_with_cleaner" style="min-height: 0px!important;">
@@ -324,6 +333,46 @@
         <i class="add_after">+</i>
         <i class="del icon-trash" title="Удалить"></i>
 </template>
+
+
+<div role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-draggable">
+
+    <div id="win_auth" class="g_theme_lite ui-dialog-content ui-widget-content" tabindex="-1" data-select-open="false">
+        <div class="modal-layer modal-layer-header">
+            <div data-order="0" data-view-page="auth">
+                <div class="modal-header">
+                    <i class="g_title">Импорт запросов из Excel</i>
+                    <i class="close"  title="Закрыть" data-g_icon="" data-popup-action="close"></i>
+                </div>
+                <hr>
+                <div id="helpModalBody" class="modal-body">
+                    <div style="margin: 10px">
+                        <p>Чтобы загрузить сразу группы и подгруппы с запросами, подготовьте файл XLSX из 3-х столбцов:</p>
+                        <br>
+                        <ul style="margin-left: 30px">
+                            <li>1 столбец - название группы;</li>
+                            <li>2 столбец - запрос;</li>
+                            <li>3 столбец - название подгруппы; (не обязательно)</li>
+                        </ul>
+
+                        <br>
+                        <p>
+                        При заполнении 3-его столбца напротив запроса, создатся вложенная группа в которую разместится запрос.
+                        </p>
+
+                        <br>
+                        <p>
+                        Чтобы загрузить файл, нажмите на кнопку левее от справки.
+                        </p>
+                        <br>
+                        <a href="media/files/Example.xlsx">Скачать пример файла Excel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui-widget-overlay ui-front" onclick="closePopUp()"></div>
 
 <script src="media/js/requests.js"></script>
 <script src="media/js/api.js"></script>

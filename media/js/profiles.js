@@ -10,13 +10,13 @@ popUpOpenBlocks.forEach((block) => {
     block.addEventListener('click', () => {
         if (profileBlock.classList.contains("show")) {
             profileBlock.classList.remove("show")
-            mainHTML.setAttribute("data-popup-open", "false")
+            mainHTML.setAttribute("data-popup-open-profile", "false")
         }
         else {
             profileBlock.classList.add("show")
 
 
-            mainHTML.setAttribute("data-popup-open", "true")
+            mainHTML.setAttribute("data-popup-open-profile", "true")
             if (width > 900) {
                 profileBlock.style.left = `${profile.getBoundingClientRect().x - 180}px`
             }else {
@@ -40,7 +40,7 @@ function listenerDocument(e) {
 
     if(!hasInChildren(el, profileBlock)) {
         profileBlock.classList.remove("show")
-        mainHTML.setAttribute("data-popup-open", "false")
+        mainHTML.setAttribute("data-popup-open-profile", "false")
         document.onclick = null
     }
 }
